@@ -170,6 +170,9 @@
       flex-direction: column;
       align-items: center;
     }
+    .servicios-bloque .etiqueta {
+      font-size: .9375rem;
+    }
     .servicios-bloque h2 {
       margin-bottom: 1.25rem;
     }
@@ -217,7 +220,7 @@
     /* Alerta + contacto */
     .alerta { display: grid; grid-template-columns: 1fr 1fr; background: var(--blanco); box-shadow: var(--sombra); }
     .alerta .texto { padding: clamp(2rem, 5vw, 3.5rem); }
-    .alerta .texto p { color: var(--texto-suave); }
+    .alerta .texto p { color: var(--texto-suave); text-align: justify; }
     .alerta form { padding: clamp(2rem, 5vw, 3.5rem); background: var(--greige-2); display: grid; gap: 1rem; align-content: center; }
     .contacto { position: relative; background: var(--grafito-2) url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=60&auto=format&fit=crop') center / cover no-repeat; }
     .contacto::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(31,30,30,.82), rgba(31,30,30,.35)); }
@@ -471,7 +474,7 @@
         <div class="texto">
           <span class="etiqueta">Alerta de propiedades</span>
           <h2 id="titulo-alerta">Se el primero en enterarte</h2>
-          <p style="margin-top:1rem">Cuéntanos qué tipo de propiedad buscas: características, superficie, dormitorios, barrio o comuna y presupuesto. Cuando aparezca una oferta que calce, te avisamos por correo.</p>
+          <p style="margin-top:1rem; text-align: justify;">Cuéntanos qué tipo de propiedad buscas: características, superficie, dormitorios, barrio o comuna y presupuesto. Cuando aparezca una oferta que calce, te avisamos por correo.</p>
         </div>
         <form id="form-alerta" novalidate>
           <div>
@@ -502,7 +505,7 @@
     <section id="servicios" class="seccion seccion-servicios" aria-labelledby="titulo-servicios">
       <div class="contenedor">
         <div class="servicios-bloque">
-          <span class="etiqueta">Qué hacemos</span>
+          <span class="etiqueta" style="font-size: .9375rem;">Qué hacemos</span>
           <h2 id="titulo-servicios">Nuestros servicios</h2>
           
           <p class="servicios-descripcion">
