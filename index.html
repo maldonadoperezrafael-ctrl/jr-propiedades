@@ -92,11 +92,46 @@
     .portada h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1.25rem; }
     .portada p { font-size: 1.125rem; color: var(--texto-suave); max-width: 34ch; }
     .acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
-    .cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--linea); align-items: start; font-family: var(--serif); }
-    .cifras > div { display: flex; flex-direction: column; }
-    .cifras strong { display: block; font-family: var(--serif); font-size: clamp(1.8rem, 2.8vw, 2.25rem); font-weight: 600; line-height: 1.05; color: var(--tinta); letter-spacing: -.01em; }
-    .cifras strong.cifra-region { font-size: clamp(1.4rem, 2.2vw, 1.85rem); line-height: 1.15; }
-    .cifras span { display: block; font-family: var(--serif); font-size: clamp(0.95rem, 1.2vw, 1.0625rem); font-weight: 500; color: var(--texto-suave); line-height: 1.25; margin-top: 0.35rem; letter-spacing: .01em; }
+    .cifras {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--linea);
+      align-items: flex-start;
+      font-family: var(--sans);
+    }
+    .cifras > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .cifras strong {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(2.1rem, 3.4vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1;
+      color: var(--tinta);
+      letter-spacing: -0.02em;
+      font-feature-settings: "lnum" 1, "tnum" 1;
+    }
+    .cifras strong.cifra-region {
+      font-size: clamp(1.65rem, 2.5vw, 2.1rem);
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+    .cifras span {
+      display: block;
+      font-family: var(--sans);
+      font-size: clamp(1.05rem, 1.35vw, 1.1875rem);
+      font-weight: 500;
+      color: var(--texto-suave);
+      line-height: 1.35;
+      margin-top: 0.45rem;
+      letter-spacing: 0.01em;
+    }
 
     /* Propiedades */
     .cabecera-seccion { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
