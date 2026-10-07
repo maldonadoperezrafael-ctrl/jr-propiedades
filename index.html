@@ -1120,7 +1120,7 @@ L492.17 116.28C493.40 116.60 513.20 116.58 513.83 116.25ZM435.47 112.27C436.63 1
       </figure>
     </section>
 
-    <section id="servicios" class="seccion" aria-labelledby="titulo-servicios">
+   <section id="servicios" class="seccion" aria-labelledby="titulo-servicios">
       <div class="contenedor">
         <div class="cabecera-seccion">
           <div>
@@ -1148,7 +1148,75 @@ L492.17 116.28C493.40 116.60 513.20 116.58 513.83 116.25ZM435.47 112.27C436.63 1
         </div>
       </div>
     </section>
+    <!-- SECCIÓN SERVICIOS REDISEÑADA Y COMPACTA -->
+    <section id="servicios" class="seccion seccion-servicios" aria-labelledby="titulo-servicios">
+      <div class="contenedor">
+        <div class="servicios-bloque">
+          <span class="etiqueta">Qué hacemos</span>
+          <h2 id="titulo-servicios">Nuestros servicios</h2>
+          
+          <p class="servicios-descripcion">
+            En <strong>JR Propiedades</strong> centralizamos todas tus necesidades en un solo lugar. Si buscas vender, comprar, arrendar o delegar la administración de tu propiedad, nos hacemos cargo de todo el proceso. Te acompañamos en cada etapa con el respaldo de un equipo multidisciplinario —arquitectos, topógrafos, abogados y tasadores— bajo la supervisión de nuestra área directiva. Nuestra filosofía es simple: entregarte cercanía, absoluta confianza y la asesoría necesaria para que tomes la mejor decisión de forma informada y sin preocupaciones.
+          </p>
 
+          <div class="servicios-conceptos">
+            <strong>Venta</strong>
+            <span class="separador">•</span>
+            <strong>Compra</strong>
+            <span class="separador">•</span>
+            <strong>Arriendo</strong>
+            <span class="separador">•</span>
+            <strong>Administración</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .seccion-servicios {
+        padding-block: clamp(2.5rem, 5vw, 4rem);
+        text-align: center;
+      }
+      .servicios-bloque {
+        max-width: 820px;
+        margin-inline: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .servicios-bloque h2 {
+        margin-bottom: 1.25rem;
+      }
+      .servicios-descripcion {
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: var(--texto-suave);
+        text-align: center;
+        margin: 0 0 1.75rem;
+      }
+      .servicios-descripcion strong {
+        color: var(--tinta);
+        font-weight: 600;
+      }
+      .servicios-conceptos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.25rem;
+        font-size: 1.0625rem;
+        color: var(--tinta);
+      }
+      .servicios-conceptos strong {
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+      .servicios-conceptos .separador {
+        color: var(--linea);
+        font-weight: 400;
+        user-select: none;
+      }
+    </style>
     <section id="nosotros" class="seccion" aria-labelledby="titulo-nosotros" style="padding-top:0">
       <div class="contenedor proceso">
         <div class="intro">
