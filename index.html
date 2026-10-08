@@ -658,10 +658,6 @@
           </div>
         </div>
       </div>
-      <div class="legal">
-        <span>© <span id="anio">2026</span> JR Propiedades · Gestión inmobiliaria</span>
-        <span>San Fernando, Región de O’Higgins</span>
-      </div>
     </div>
   </footer>
 
@@ -775,7 +771,7 @@
         actualizarComunas(selectRegion.value, 'San Fernando');
       }
 
-      document.getElementById('anio').textContent = new Date().getFullYear();
+      var aEl = document.getElementById('anio'); if (aEl) aEl.textContent = new Date().getFullYear();
     })();
   </script>
 </body>
