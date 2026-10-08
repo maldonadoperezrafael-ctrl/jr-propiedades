@@ -158,7 +158,9 @@
     .pie a { text-decoration: none; }
     .pie a:hover { text-decoration: underline; text-underline-offset: 3px; }
     .redes { display: flex; gap: .75rem; margin-top: 1rem; }
-    .redes a { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--tinta); border-radius: 50%; }
+    .redes a { position: relative; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--tinta); border-radius: 50%; transition: transform .2s ease, border-color .2s ease; }
+    .redes a:hover { transform: translateY(-2px); border-color: var(--grafito); }
+    .simbolo-redireccion { position: absolute; top: 3px; right: 3px; width: 8px; height: 8px; color: var(--gris); opacity: 0.85; }
     .legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: .8125rem; color: var(--texto-suave); margin-top: 1.5rem; }
     .whatsapp { position: fixed; right: 1.25rem; bottom: 1.25rem; width: 58px; height: 58px; border-radius: 50%; background: #1F8A4C; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,.25); z-index: 40; transition: transform .2s; }
     .whatsapp:hover { transform: scale(1.06); }
@@ -493,7 +495,7 @@
         <form id="form-alerta" novalidate>
           <div>
             <label for="alerta-correo">Correo electrónico</label>
-            <input id="alerta-correo" name="correo" type="email" autocomplete="email" required placeholder="tu@correo.cl">
+            <input id="alerta-correo" name="correo" type="email" autocomplete="email" required placeholder="">
             <p class="error" id="error-alerta-correo" aria-live="polite"></p>
           </div>
           <div>
@@ -505,7 +507,7 @@
               * Espacio habilitado para especificaciones detalladas (extensión permitida de 2.000 a 4.000 caracteres).
             </p>
           </div>
-          <button class="boton" type="submit" style="margin-top:0.5rem;">Suscribirme</button>
+          <button class="boton" type="submit" style="margin-top:0.5rem;">Dime lo que buscas</button>
           <p class="estado" role="status"></p>
         </form>
       </div>
@@ -554,13 +556,30 @@
           <div class="dos">
             <div>
               <label for="region">Región</label>
-              <select id="region" name="region">
-                <option>O’Higgins</option><option>Metropolitana</option><option>Maule</option><option>Valparaíso</option><option>Otra</option>
+              <select id="region" name="region" required>
+                <option value="Arica y Parinacota">Arica y Parinacota</option>
+                <option value="Tarapacá">Tarapacá</option>
+                <option value="Antofagasta">Antofagasta</option>
+                <option value="Atacama">Atacama</option>
+                <option value="Coquimbo">Coquimbo</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                <option value="Libertador General Bernardo O’Higgins" selected>Libertador General Bernardo O’Higgins</option>
+                <option value="Maule">Maule</option>
+                <option value="Ñuble">Ñuble</option>
+                <option value="Biobío">Biobío</option>
+                <option value="La Araucanía">La Araucanía</option>
+                <option value="Los Ríos">Los Ríos</option>
+                <option value="Los Lagos">Los Lagos</option>
+                <option value="Aysén del Gral. Carlos Ibáñez del Campo">Aysén del Gral. Carlos Ibáñez del Campo</option>
+                <option value="Magallanes y de la Antártica Chilena">Magallanes y de la Antártica Chilena</option>
               </select>
             </div>
             <div>
               <label for="comuna">Comuna</label>
-              <input id="comuna" name="comuna" autocomplete="address-level2" placeholder="San Fernando">
+              <select id="comuna" name="comuna" required>
+                <!-- Opciones cargadas dinámicamente según la región seleccionada -->
+              </select>
             </div>
           </div>
           <label class="consentimiento"><input type="checkbox" id="acepto" name="acepto" required> <span>Acepto que JR Propiedades use estos datos solo para contactarme por mi solicitud.</span></label>
@@ -606,8 +625,27 @@
             <li><a href="mailto:contacto@jrpropiedades.cl">contacto@jrpropiedades.cl</a></li>
           </ul>
           <div class="redes">
-            <a href="#" aria-label="Instagram de JR Propiedades"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></a>
-            <a href="https://wa.me/56990704040" aria-label="WhatsApp de JR Propiedades"><svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c.3 2 1.8 3.8 4 4.8l1-1 2 .8"/></svg></a>
+            <!-- Instagram con símbolo de redirección -->
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar Instagram de JR Propiedades (abre en nueva pestaña)" class="enlace-externo">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>
+              </svg>
+              <svg class="simbolo-redireccion" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 1.5h6v6M8.5 1.5L1.5 8.5"/></svg>
+            </a>
+            <!-- Facebook con símbolo de redirección -->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar Facebook de JR Propiedades (abre en nueva pestaña)" class="enlace-externo">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+              <svg class="simbolo-redireccion" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 1.5h6v6M8.5 1.5L1.5 8.5"/></svg>
+            </a>
+            <!-- WhatsApp con símbolo de redirección -->
+            <a href="https://wa.me/56990704040" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp a JR Propiedades (abre en nueva pestaña)" class="enlace-externo">
+              <svg class="icono" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c.3 2 1.8 3.8 4 4.8l1-1 2 .8"/>
+              </svg>
+              <svg class="simbolo-redireccion" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 1.5h6v6M8.5 1.5L1.5 8.5"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -699,6 +737,35 @@
         if (!marcar(f.correo, reCorreo.test(f.correo.value.trim()) ? '' : 'Ingresa un correo válido.')) { f.correo.focus(); return; }
         exito(f, 'Listo. En el sitio final te avisaremos por correo cuando aparezca una propiedad como la que buscas.');
       });
+      
+      // Mapa dinámico de regiones y comunas oficiales de Chile (16 regiones, 346 comunas)
+      var mapaChile = {"Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"], "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"], "Antofagasta": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"], "Atacama": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"], "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"], "Valparaíso": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "La Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"], "Metropolitana de Santiago": ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"], "Libertador General Bernardo O’Higgins": ["San Fernando", "Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"], "Maule": ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"], "Ñuble": ["Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"], "Biobío": ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío"], "La Araucanía": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"], "Los Ríos": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"], "Los Lagos": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"], "Aysén del Gral. Carlos Ibáñez del Campo": ["Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez"], "Magallanes y de la Antártica Chilena": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]};
+      var selectRegion = document.getElementById('region');
+      var selectComuna = document.getElementById('comuna');
+
+      function actualizarComunas(regionNombre, comunaPredeterminada) {
+        if (!selectComuna) return;
+        var comunas = mapaChile[regionNombre] || [];
+        selectComuna.innerHTML = '';
+        comunas.forEach(function (c) {
+          var opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c;
+          if (comunaPredeterminada && c.toLowerCase() === comunaPredeterminada.toLowerCase()) {
+            opt.selected = true;
+          }
+          selectComuna.appendChild(opt);
+        });
+      }
+
+      if (selectRegion && selectComuna) {
+        selectRegion.addEventListener('change', function () {
+          actualizarComunas(this.value);
+        });
+        // Inicializar comunas con la región por defecto (O'Higgins y San Fernando)
+        actualizarComunas(selectRegion.value, 'San Fernando');
+      }
+
       document.getElementById('anio').textContent = new Date().getFullYear();
     })();
   </script>
