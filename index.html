@@ -330,7 +330,7 @@
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
             <a href="#contacto" data-servicio="Comprar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Compra</a>
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
-            <a href="#contacto" data-servicio="Administrar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Administración</a>
+            <a href="#contacto"  class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Administración</a>
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
             <a href="#contacto" data-servicio="Vender" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Venta</a>
           </div>
@@ -390,9 +390,6 @@
             </p>
           </div>
         </div>
-        <p style="font-family:var(--sans); font-size:0.875rem; color:var(--texto-suave); text-align:center; margin-top:2.5rem; margin-bottom:0; letter-spacing:0.01em; opacity:0.9;">
-          Servicios especializados disponibles tanto para optimizar tu operación de corretaje como para contratación independiente.
-        </p>
       </div>
     </section>
 
@@ -529,8 +526,8 @@
               <p style="font-family:var(--sans); font-size:0.98rem; line-height:1.75; color:var(--texto-suave); margin:0 0 1.25rem; text-align:justify;">
                 La etapa final. Para concretar la venta, nos encargamos de negociar con los compradores, redactar la promesa de compraventa y realizar los trámites notariales.
               </p>
-              <a href="#contacto" data-servicio="Tasación" style="display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--sans); font-size:0.92rem; font-weight:600; color:var(--tinta); text-decoration:none; padding:0.5rem 1rem; border:1px solid var(--tinta); border-radius:var(--radio); background:transparent; transition:background .2s, color .2s;">
-                Comenzar con el Paso 1: Tasación de mi propiedad →
+              <a href="#contacto"  style="display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--sans); font-size:0.92rem; font-weight:600; color:var(--tinta); text-decoration:none; padding:0.5rem 1rem; border:1px solid var(--tinta); border-radius:var(--radio); background:transparent; transition:background .2s, color .2s;">
+                Iniciar la gestión de mi propiedad →
               </a>
             </div>
           </div>
@@ -568,7 +565,9 @@
             <div>
               <label for="servicio">¿Qué necesitas?</label>
               <select id="servicio" name="servicio">
-                <option>Vender</option><option>Arrendar</option><option>Comprar</option><option>Administrar</option><option>Tasación</option>
+                <option>Vender</option>
+                <option>Arrendar</option>
+                <option>Comprar</option>
               </select>
             </div>
             <div>
@@ -807,7 +806,13 @@
           var val = this.getAttribute('data-servicio');
           var sel = document.getElementById('servicio');
           if (sel && val) {
-            sel.value = val;
+            for (var i = 0; i < sel.options.length; i++) {
+              if (sel.options[i].value === val) {
+                sel.value = val;
+                break;
+              }
+            }
+          }
           }
         });
       });
