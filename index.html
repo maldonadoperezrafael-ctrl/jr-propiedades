@@ -203,6 +203,118 @@
       .formulario .boton { margin-bottom: 2rem; }
     }
 
+  
+    /* =========================================================
+       REGLAS RESPONSIVAS AUDITADAS PARA MÓVIL Y TABLET
+       ========================================================= */
+    .servicios-pildoras {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.25rem 2rem;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: var(--radio);
+      border: 1px solid rgba(31, 30, 30, 0.08);
+    }
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+    .disciplinas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 4.5rem;
+      padding-top: 2.5rem;
+      text-align: center;
+      align-items: start;
+    }
+    .pasos-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: clamp(2.5rem, 5vw, 4.5rem);
+      align-items: start;
+      max-width: 1050px;
+    }
+    .pasos-ilustraciones {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.8rem;
+      padding-top: 0.5rem;
+    }
+
+    @media (max-width: 860px) {
+      .nosotros-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .nosotros-grid > div:last-child {
+        margin: 0 auto;
+        max-width: 360px;
+        width: 100%;
+      }
+      .disciplinas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1.25rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+      }
+      .pasos-grid {
+        grid-template-columns: 90px 1fr;
+        gap: 1.75rem;
+      }
+      .pasos-ilustraciones {
+        gap: 2.2rem;
+      }
+      .pasos-ilustraciones > div {
+        width: 75px !important;
+        height: auto !important;
+      }
+      .pasos-ilustraciones svg {
+        width: 100% !important;
+        height: auto !important;
+      }
+      .servicios-pildoras {
+        justify-content: center;
+        gap: 0.85rem 1.25rem;
+        padding: 1rem 1.25rem;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .disciplinas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.75rem 0.75rem;
+      }
+      .disciplinas-grid p {
+        font-size: 0.95rem !important;
+      }
+      .pasos-grid {
+        grid-template-columns: 70px 1fr;
+        gap: 1.25rem;
+      }
+      .pasos-ilustraciones > div {
+        width: 60px !important;
+      }
+      .servicios-pildoras a {
+        font-size: 1.15rem !important;
+      }
+      .portada .tarjeta {
+        padding: 1.75rem 1.25rem;
+      }
+      .cifras {
+        gap: 0.5rem;
+      }
+      .cifras span {
+        font-size: 0.75rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -334,7 +446,7 @@
           <p style="font-family:var(--sans); font-size:1.05rem; line-height:1.75; color:var(--texto-suave); margin-bottom:2rem; text-align:justify;">
             Si buscas vender, comprar o poner en arriendo tu propiedad en San Fernando y la Provincia de Colchagua, diseñamos una estrategia a tu medida. Desde calcular el valor real de tu propiedad hasta la firma del contrato. Buscamos al arrendatario o comprador correcto, lo evaluamos a fondo y preparamos toda la "papelería" para que tú no tengas que preocuparte de los trámites. Te acompañamos desde la primera visita hasta la entrega de tus llaves.
           </p>
-          <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.25rem; padding:1.25rem 2rem; background:rgba(255,255,255,0.6); border-radius:var(--radio); border:1px solid rgba(31,30,30,0.08);">
+          <div class="servicios-pildoras">
             <a href="#contacto" data-servicio="Arrendar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Arriendo</a>
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
             <a href="#contacto" data-servicio="Comprar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Compra</a>
@@ -350,7 +462,7 @@
     <!-- SECCIÓN NOSOTROS (RÉPLICA EXACTA PRINT N° 2) -->
     <section id="nosotros" class="seccion" aria-labelledby="titulo-nosotros" style="background-color:var(--greige); padding-top:clamp(3.5rem,6vw,5.5rem); padding-bottom:clamp(3.5rem,6vw,5.5rem);">
       <div class="contenedor">
-        <div style="display:grid; grid-template-columns:1.15fr 0.85fr; gap:clamp(2rem, 5vw, 4.5rem); align-items:start;">
+        <div class="nosotros-grid">
           <!-- Columna Izquierda: Contenido Editorial -->
           <div>
             <span class="etiqueta" style="letter-spacing:0.14em; text-transform:uppercase; font-size:0.85rem; color:var(--gris);">NOSOTROS</span>
@@ -377,7 +489,7 @@
         </div>
 
         <!-- Fila Inferior Print 2: 4 Disciplinas centradas según especificaciones -->
-        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem; margin-top:4.5rem; padding-top:2.5rem; text-align:center; align-items:start;">
+        <div class="disciplinas-grid">
           <div>
             <p style="font-family:var(--sans); font-size:1.05rem; font-weight:500; color:var(--tinta); line-height:1.4; margin:0; text-align:center;">
               Arquitectura<br>e<br>Interiorismo
@@ -411,10 +523,10 @@
         </div>
 
         <!-- Flujo en 2 columnas: Columna izquierda (dibujos lineales blancos y flechas) + Columna derecha (textos) -->
-        <div style="display:grid; grid-template-columns:220px 1fr; gap:clamp(2.5rem, 5vw, 4.5rem); align-items:start; max-width:1050px;">
+        <div class="pasos-grid">
           
           <!-- Columna Izquierda: Ilustraciones vectoriales blancas exactas del Print 3 -->
-          <div style="display:flex; flex-direction:column; align-items:center; gap:2.8rem; padding-top:0.5rem;">
+          <div class="pasos-ilustraciones">
             <!-- Ilustración 1: Balanza con casa y dinero -->
             <div style="width:130px; height:100px; display:flex; justify-content:center; align-items:center;">
               <svg viewBox="0 0 130 100" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:100%; height:100%;">
