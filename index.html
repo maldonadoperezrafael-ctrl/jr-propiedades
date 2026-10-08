@@ -50,7 +50,7 @@
     .saltar { position: absolute; left: 1rem; top: -3rem; background: var(--grafito); color: #fff; padding: .6rem 1rem; z-index: 100; }
     .saltar:focus { top: 1rem; }
 
-    .aviso-demo { background: var(--grafito-2); color: #F1EDE9; font-size: .8125rem; text-align: center; padding: .5rem 1rem; letter-spacing: .02em; }
+    
 
     /* Encabezado */
     .encabezado { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.94); backdrop-filter: saturate(1.2) blur(10px); border-bottom: 1px solid var(--linea); }
@@ -197,6 +197,12 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition: none !important; animation: none !important; }
     }
+  
+    @media (max-width: 600px) {
+      .whatsapp { bottom: 1.25rem; right: 1.25rem; width: 50px; height: 50px; }
+      .formulario .boton { margin-bottom: 2rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -211,7 +217,6 @@
   </svg>
 
   <a class="saltar" href="#principal">Saltar al contenido</a>
-  <div class="aviso-demo" role="note">Propuesta de diseño web basada en el diseño original de Canva · Propiedades, precios y fotos son de ejemplo</div>
 
   <header class="encabezado">
     <div class="contenedor">
@@ -242,7 +247,7 @@
         <p>Vendemos, arrendamos y administramos tu propiedad con un plan hecho a tu medida, para que se concrete rápido y en las mejores condiciones.</p>
         <div class="acciones">
           <a class="boton" href="#propiedades">Ver propiedades</a>
-          <a class="boton secundario" href="#contacto">Contáctanos</a>
+          <a class="boton secundario" href="#contacto" data-servicio="Vender">Quiero vender mi propiedad</a>
         </div>
         <div class="cifras" aria-label="JR Propiedades en cifras">
           <div style="text-align: center;">
@@ -321,13 +326,13 @@
             Si buscas vender, comprar o poner en arriendo tu propiedad en San Fernando y la Provincia de Colchagua, diseñamos una estrategia comercial y jurídica a tu medida. Nuestro equipo combina tasación precisa, difusión segmentada en portales líderes y redes sociales, selección rigurosa de arrendatarios y gestión contractual completa. Te acompañamos desde la primera visita hasta la firma en notaría.
           </p>
           <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.25rem; padding:1.25rem 2rem; background:rgba(255,255,255,0.6); border-radius:var(--radio); border:1px solid rgba(31,30,30,0.08);">
-            <span style="font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em;">Arriendo</span>
+            <a href="#contacto" data-servicio="Arrendar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Arriendo</a>
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
-            <span style="font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em;">Compra</span>
+            <a href="#contacto" data-servicio="Comprar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Compra</a>
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
-            <span style="font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em;">Administración</span>
+            <a href="#contacto" data-servicio="Administrar" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Administración</a>
             <span style="color:var(--linea); font-size:1.2rem;">·</span>
-            <span style="font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em;">Venta</span>
+            <a href="#contacto" data-servicio="Vender" class="pildora-link" style="text-decoration:none; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--tinta); letter-spacing:0.02em; transition:color .2s;">Venta</a>
           </div>
         </div>
       </div>
@@ -385,6 +390,9 @@
             </p>
           </div>
         </div>
+        <p style="font-family:var(--sans); font-size:0.875rem; color:var(--texto-suave); text-align:center; margin-top:2.5rem; margin-bottom:0; letter-spacing:0.01em; opacity:0.9;">
+          Servicios especializados disponibles tanto para optimizar tu operación de corretaje como para contratación independiente.
+        </p>
       </div>
     </section>
 
@@ -518,9 +526,12 @@
               <h3 style="font-family:var(--serif); font-size:clamp(1.75rem, 2.4vw, 2.2rem); font-weight:500; color:var(--tinta); margin:0 0 1rem; letter-spacing:-0.01em;">
                 ¡Vendido!
               </h3>
-              <p style="font-family:var(--sans); font-size:0.98rem; line-height:1.75; color:var(--texto-suave); margin:0; text-align:justify;">
+              <p style="font-family:var(--sans); font-size:0.98rem; line-height:1.75; color:var(--texto-suave); margin:0 0 1.25rem; text-align:justify;">
                 La etapa final. Para concretar la venta, nos encargamos de negociar con los compradores, redactar la promesa de compraventa y realizar los trámites notariales.
               </p>
+              <a href="#contacto" data-servicio="Tasación" style="display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--sans); font-size:0.92rem; font-weight:600; color:var(--tinta); text-decoration:none; padding:0.5rem 1rem; border:1px solid var(--tinta); border-radius:var(--radio); background:transparent; transition:background .2s, color .2s;">
+                Comenzar con el Paso 1: Tasación de mi propiedad →
+              </a>
             </div>
           </div>
         </div>
@@ -692,6 +703,8 @@
       var grilla = document.getElementById('grilla');
       function num(n) { return n.toLocaleString('es-CL'); }
       function tarjeta(p) {
+        var msjWa = encodeURIComponent('Hola, me interesa información sobre: ' + p.titulo);
+        var enlaceWa = 'https://wa.me/56990704040?text=' + msjWa;
         return '<article class="propiedad">' +
           '<figure><img src="' + U + p.foto + q + '" width="720" height="540" loading="lazy" decoding="async" alt="' + p.alt + '"><span class="sello">' + etiquetas[p.tipo] + '</span></figure>' +
           '<div class="cuerpo"><h3>' + p.titulo + '</h3>' +
@@ -700,7 +713,14 @@
             '<li><svg class="icono" aria-hidden="true"><use href="#i-cama"/></svg>' + p.dorm + '<span class="ocultar"> dormitorios</span></li>' +
             '<li><svg class="icono" aria-hidden="true"><use href="#i-bano"/></svg>' + p.banos + '<span class="ocultar"> baños</span></li>' +
             '<li><svg class="icono" aria-hidden="true"><use href="#i-area"/></svg>' + num(p.m2) + ' m²</li>' +
-          '</ul><p class="precio">' + p.precio + '</p></div></article>';
+          '</ul>' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.85rem; padding-top:0.75rem; border-top:1px solid rgba(31,30,30,0.06);">' +
+            '<p class="precio" style="margin:0;">' + p.precio + '</p>' +
+            '<a href="' + enlaceWa + '" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; font-size:0.85rem; font-family:var(--sans); font-weight:500; color:#128C7E; text-decoration:none; padding:0.35rem 0.65rem; border:1px solid rgba(18,140,126,0.25); border-radius:var(--radio); background:rgba(37,211,102,0.06); transition:background .2s;">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c.3 2 1.8 3.8 4 4.8l1-1 2 .8"/></svg>' +
+              '<span>Consultar</span>' +
+            '</a>' +
+          '</div></div></article>';
       }
       function pintar(filtro) {
         grilla.innerHTML = propiedades.filter(function (p) { return filtro === 'todas' || p.tipo === filtro; }).map(tarjeta).join('');
@@ -780,7 +800,19 @@
         actualizarComunas(selectRegion.value, 'San Fernando');
       }
 
-      var aEl = document.getElementById('anio'); if (aEl) aEl.textContent = new Date().getFullYear();
+      var aEl = 
+      // Sincronización automática de selección de servicio al hacer clic en enlaces y botones
+      document.querySelectorAll('[data-servicio]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var val = this.getAttribute('data-servicio');
+          var sel = document.getElementById('servicio');
+          if (sel && val) {
+            sel.value = val;
+          }
+        });
+      });
+
+      var _dummy = document.getElementById('anio'); if (aEl) aEl.textContent = new Date().getFullYear();
     })();
   </script>
 </body>
