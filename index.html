@@ -45,4 +45,742 @@
     p { margin: 0 0 1rem; }
     .contenedor { width: min(100% - 2.5rem, var(--max)); margin-inline: auto; }
     .seccion { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-    .ocultar { position: absolute
+    .ocultar { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    :focus-visible { outline: 2px solid var(--grafito); outline-offset: 3px; }
+    .saltar { position: absolute; left: 1rem; top: -3rem; background: var(--grafito); color: #fff; padding: .6rem 1rem; z-index: 100; }
+    .saltar:focus { top: 1rem; }
+
+    /* Encabezado */
+    .encabezado { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.94); backdrop-filter: saturate(1.2) blur(10px); border-bottom: 1px solid var(--linea); }
+    .encabezado .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 84px; }
+    .marca { display: inline-flex; align-items: center; color: var(--tinta); text-decoration: none; }
+    .marca svg { height: 64px; width: auto; display: block; }
+    .menu { display: flex; gap: clamp(1rem, 2.5vw, 2.25rem); list-style: none; margin: 0; padding: 0; }
+    .menu li { list-style: none; margin: 0; padding: 0; }
+    .menu a { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--serif); font-size: 1.125rem; text-decoration: none; letter-spacing: .06em; text-transform: uppercase; border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .menu a:hover, .menu a[aria-current="true"] { border-color: var(--tinta); }
+    .boton { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 48px; padding: .75rem 1.5rem; border-radius: var(--radio); background: var(--grafito); color: #fff; font-family: var(--sans); font-weight: 500; font-size: .875rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--grafito); cursor: pointer; transition: background .2s, color .2s, transform .2s; }
+    .boton:hover { background: var(--grafito-2); transform: translateY(-1px); }
+    .boton.secundario { background: transparent; color: var(--tinta); border-color: var(--tinta); }
+    .boton.secundario:hover { background: var(--tinta); color: #fff; }
+    .abrir-menu { display: none; background: none; border: 0; width: 48px; height: 48px; cursor: pointer; color: var(--tinta); }
+    .abrir-menu span { display: block; width: 26px; height: 2px; background: currentColor; margin: 6px auto; transition: transform .25s, opacity .25s; }
+    .abrir-menu[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .abrir-menu[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .abrir-menu[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Portada */
+    .portada { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; align-items: stretch; margin-top: clamp(1.5rem, 4vw, 3rem); }
+    .portada figure { margin: 0; min-height: 420px; }
+    .portada figure img { width: 100%; height: 100%; object-fit: cover; }
+    .portada .tarjeta { background: var(--blanco); border: 1px solid var(--tinta); padding: clamp(2rem, 5vw, 4rem); display: flex; flex-direction: column; justify-content: center; }
+    .portada h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1.25rem; }
+    .portada p { font-size: 1.125rem; color: var(--texto-suave); max-width: 34ch; }
+    .acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+    .cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--linea); }
+    .cifras strong { display: block; font-family: var(--serif); font-size: 2rem; font-weight: 600; line-height: 1; }
+    .cifras span { font-size: .8125rem; color: var(--texto-suave); letter-spacing: .04em; }
+
+    /* Propiedades */
+    .cabecera-seccion { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
+    .etiqueta { font-size: .8125rem; letter-spacing: .18em; text-transform: uppercase; color: var(--texto-suave); margin-bottom: .5rem; display: block; }
+    .filtros { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .filtros button { min-height: 44px; padding: .5rem 1.1rem; border-radius: 999px; border: 1px solid var(--tinta); background: transparent; font: 500 .875rem var(--sans); letter-spacing: .06em; cursor: pointer; color: var(--tinta); }
+    .filtros button[aria-pressed="true"] { background: var(--tinta); color: #fff; }
+    .grilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.5rem; }
+    .propiedad { background: var(--blanco); box-shadow: var(--sombra); display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+    .propiedad:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(31,30,30,.12); }
+    .propiedad figure { margin: 0; position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .propiedad figure img { width: 100%; height: 100%; object-fit: cover; }
+    .propiedad .sello { position: absolute; top: .75rem; left: .75rem; background: var(--blanco); color: var(--tinta); font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: .3rem .6rem; border-radius: 2px; }
+    .propiedad .cuerpo { padding: 1.25rem 1.25rem 1.4rem; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
+    .propiedad h3 { font-size: 1.6rem; }
+    .propiedad .lugar { font-size: .9375rem; color: var(--texto-suave); display: flex; align-items: center; gap: .35rem; margin: 0; }
+    .propiedad .datos { display: flex; gap: 1.1rem; list-style: none; padding: .75rem 0 0; margin: .5rem 0 0; border-top: 1px solid var(--linea); font-size: .9375rem; }
+    .propiedad .datos li { display: flex; align-items: center; gap: .4rem; }
+    .propiedad .precio { margin-top: auto; padding-top: .75rem; font-family: var(--serif); font-size: 1.5rem; font-weight: 600; }
+    .icono { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Alerta + contacto */
+    .alerta { display: grid; grid-template-columns: 1fr 1fr; background: var(--blanco); box-shadow: var(--sombra); }
+    .alerta .texto { padding: clamp(2rem, 5vw, 3.5rem); }
+    .alerta .texto p { color: var(--texto-suave); }
+    .alerta form { padding: clamp(2rem, 5vw, 3.5rem); background: var(--greige-2); display: grid; gap: 1rem; align-content: center; }
+    .contacto { position: relative; background: var(--grafito-2) url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=60&auto=format&fit=crop') center / cover no-repeat; }
+    .contacto::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(31,30,30,.82), rgba(31,30,30,.35)); }
+    .contacto .contenedor { position: relative; display: grid; grid-template-columns: 1fr minmax(320px, 520px); gap: 2rem; align-items: center; }
+    .contacto .lema { color: #fff; }
+    .contacto .lema h2 { font-size: clamp(2.5rem, 6vw, 4.25rem); }
+    .contacto .lema p { max-width: 36ch; opacity: .92; }
+    .formulario { background: var(--blanco); padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: 0 20px 50px rgba(0,0,0,.25); display: grid; gap: 1rem; }
+    .formulario h3 { font-size: 2rem; }
+    .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label { display: block; font-size: .875rem; font-weight: 500; margin-bottom: .35rem; }
+    input, select, textarea { width: 100%; min-height: 48px; padding: .7rem .9rem; font: 400 1rem var(--sans); color: var(--tinta); background: #fff; border: 1px solid #8C8580; border-radius: var(--radio); }
+    textarea { min-height: 110px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--grafito); outline-offset: 1px; border-color: var(--grafito); }
+    input[aria-invalid="true"], select[aria-invalid="true"] { border-color: #B42318; }
+    .error { color: #B42318; font-size: .8125rem; margin-top: .25rem; min-height: 1em; }
+    .consentimiento { display: flex; gap: .6rem; align-items: flex-start; font-size: .875rem; color: var(--texto-suave); }
+    .consentimiento input { width: 20px; min-height: 20px; height: 20px; margin-top: .15rem; accent-color: var(--grafito); }
+    .estado { font-size: .9375rem; padding: .75rem 1rem; border-left: 4px solid var(--grafito); background: var(--greige-2); display: none; }
+    .estado.visible { display: block; }
+
+    /* Pie */
+    .pie { padding-block: 3.5rem 2rem; }
+    .pie .marco { border: 1px solid var(--tinta); padding: clamp(2rem, 5vw, 3rem); display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 2rem; }
+    .pie .marca svg { height: 96px; width: auto; }
+    .pie h2 { font-family: var(--sans); font-size: .8125rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; margin-bottom: .9rem; }
+    .pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; font-size: .9375rem; }
+    .pie a { text-decoration: none; }
+    .pie a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .redes { display: flex; gap: 0.85rem; margin-top: 1.15rem; align-items: center; }
+    .redes a { position: relative; width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: none; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .redes a:hover { transform: translateY(-3px); }
+    .redes a.red-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); box-shadow: 0 4px 10px rgba(214, 36, 159, 0.28); }
+    .redes a.red-facebook { background: #1877F2; box-shadow: 0 4px 10px rgba(24, 119, 242, 0.28); }
+    .redes a.red-whatsapp { background: #25D366; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.28); }
+    .redes a svg.icono-red { width: 22px; height: 22px; }
+    .redes a .simbolo-redireccion { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; color: #FFFFFF; opacity: 0.9; }
+    .whatsapp { position: fixed; right: 1.25rem; bottom: 1.25rem; width: 58px; height: 58px; border-radius: 50%; background: #1F8A4C; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,.25); z-index: 40; transition: transform .2s; }
+    .whatsapp:hover { transform: scale(1.06); }
+
+    /* =========================================================
+       ESTILOS EXACTOS LÁMINAS 2, 4 Y 6
+       ========================================================= */
+    /* Lámina 2: Botones Qué Hacemos */
+    .servicios-pildoras {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .pildora-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #6E6555;
+      color: #FFFFFF !important;
+      font-family: var(--sans) !important;
+      font-size: 0.95rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.22em !important;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 1.15rem 1rem;
+      border-radius: 14px;
+      transition: transform .2s ease, background-color .2s ease;
+    }
+    .pildora-link:hover {
+      background-color: #5A5244;
+      transform: translateY(-2px);
+    }
+
+    /* Lámina 4: Nosotros + 4 Píldoras inferiores */
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+    .disciplinas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-top: 4rem;
+      align-items: stretch;
+    }
+    .disciplina-item {
+      background-color: #CFC3AE;
+      border-radius: 16px;
+      padding: 1.35rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .disciplina-item p {
+      font-family: var(--sans) !important;
+      font-size: 0.95rem !important;
+      font-weight: 500 !important;
+      color: #3D352E !important;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1.45 !important;
+      margin: 0 !important;
+    }
+
+    /* Lámina 6: Grilla 2x2 Paso a Paso */
+    .pasos-contenedor-l6 {
+      background-color: #6E6555;
+      padding: clamp(1.25rem, 3vw, 2.25rem);
+      border-radius: 4px;
+      margin-bottom: 2.5rem;
+    }
+    .pasos-grid-l6 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1rem, 2.5vw, 1.75rem);
+    }
+    .paso-card-l6 {
+      background-color: #D9D6CE;
+      border-radius: 22px;
+      padding: clamp(1.75rem, 3.5vw, 2.5rem);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    .paso-num-l6 {
+      font-family: var(--serif);
+      font-size: clamp(2.8rem, 4.5vw, 3.8rem);
+      font-weight: 600;
+      color: #414143;
+      line-height: 0.95;
+    }
+    .paso-card-l6 h3 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.2vw, 2rem);
+      font-weight: 600;
+      color: var(--tinta);
+      margin: 0 0 0.65rem;
+    }
+    .paso-card-l6 p {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--tinta);
+      margin: 0;
+    }
+
+    /* Adaptación a tablet y móvil */
+    @media (max-width: 1024px) {
+      .pie .marco { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      .abrir-menu { display: block; }
+      .navegacion { position: fixed; inset: 84px 0 auto 0; background: var(--blanco); border-bottom: 1px solid var(--linea); padding: 1.5rem 1.25rem 2rem; transform: translateY(-120%); visibility: hidden; transition: transform .3s, visibility .3s; }
+      .navegacion.abierta { transform: none; visibility: visible; }
+      .menu { flex-direction: column; gap: 1rem; }
+      .menu a { font-size: 1.5rem; }
+      .encabezado .contacto-rapido { display: none; }
+      .portada, .alerta, .contacto .contenedor { grid-template-columns: 1fr; }
+      .portada figure { min-height: 260px; aspect-ratio: 4 / 3; }
+      .servicios-pildoras, .disciplinas-grid { grid-template-columns: repeat(2, 1fr); }
+      .nosotros-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nosotros-grid > div:last-child { margin: 0 auto; max-width: 360px; width: 100%; }
+      .pasos-grid-l6 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .whatsapp { bottom: 1.25rem; right: 1.25rem; width: 50px; height: 50px; }
+      .formulario .boton { margin-bottom: 2rem; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 1rem; }
+      .marca svg { height: 44px; }
+      .dos, .pie .marco, .servicios-pildoras, .disciplinas-grid { grid-template-columns: 1fr; }
+      .paso-card-l6 { grid-template-columns: 1fr; gap: 0.75rem; }
+      .portada .tarjeta { padding: 1.75rem 1.25rem; }
+      .cifras { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+      .cifras strong { font-size: 1.6rem; }
+      .cifras span { font-size: 0.75rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="logo-jr" viewBox="0 0 588 395">
+        <path fill-rule="evenodd" d="M379.7 363.5L373.3 362.8 370.4 360.3 367.7 363 363.7 362.1 366.3 357.3 366.3 304.5 363.6 301.6 364.5 300.7 387.8 300.8 395.3 306 402.3 314.3 405.2 322.8 406 331.5 405 345.7 400.2 353.2 394.7 359.1 388.8 363ZM14.8 363.3L10.4 362 5.7 359.2 3.2 355.4 4.2 353.3 7.8 356.2 12.9 359.4 17.1 360.7 25.9 359.3 32.8 355.3 36.7 350 39.7 344.2 42.2 336.8 42.2 305.3 39.5 302 40.2 300.9 44.1 301 44.7 303.4 44.7 342.2 41.9 348.6 37.9 354.3 32.9 359.4 27.5 363 23.1 363.3ZM227.4 363.3L222.7 361.9 217.4 358.9 212.1 353.3 208.3 346.6 206.3 337.3 206.4 326.5 207.9 318.6 211.9 311.9 217.5 305.7 225.7 300.7 238.9 300.8 246.8 306.1 252.5 312.8 256.1 319.2 258.4 332 257.5 339.1 255.1 347.5 251.1 353.9 245.7 359.3 239.7 363.1 235.7 363.3ZM471.3 363.3L465.5 361.7 461.8 363 458.5 362.5 460.6 357.8 460.6 305.1 458.3 301.5 459 300.7 482.4 300.7 488.7 304.6 494.3 310.2 499 317.5 501.5 327.2 501.5 338.7 499 347.1 495.5 352.8 490.5 358.2 483.7 363ZM161 363L159.8 361.8 162.3 358 162.3 304.6 159.5 302 160.3 300.9 189.4 300.8 196.3 304.5 201.1 309.2 203.1 317.4 201.1 324.1 196.4 329.4 190.5 332.2 185.7 334.8 187.2 339.4 191.5 346.9 196.3 354.3 202.2 361.6 200.8 363 197.3 362.6 192.5 355 187.2 345.5 183.3 339.2 179.1 333.8 166 333.6 165 335.4 164.9 362.3 163.8 362.9ZM263 363L261.5 362 264.3 357.8 264.3 304 261.5 302 262.3 300.9 291.7 300.9 298.7 305 303.1 309.1 305.1 316 303.1 324.4 298.6 329.2 292.9 332.1 286.2 333.7 269.5 333.7 267.1 335.8 266.9 361 265 363ZM310.4 363.1L308.3 362.1 311 357 311.1 306.4 308.1 302.2 309.2 301 315.6 300.9 316.2 302.3 313.9 305.8 313.8 357.6 316.3 361.9 315.5 362.8ZM323 363.1L320.8 361.8 322.1 358.1 322.1 304.3 320.2 301.7 320.5 300.7 359.4 300.7 360.7 302.2 360.2 305.2 356.4 305.3 354.7 303.5 328.7 303.5 326.6 305.9 326.5 328.5 328.1 329.8 344.6 329.9 345 331.5 343.6 333.7 328.3 333.6 326.5 335.7 326.5 357.1 328.3 359.8 354.3 359.8 357 358 360.5 358.8 360 361.4 357.4 363.1ZM450.9 362.9L447.9 359.8 445.5 353.6 444.2 348.5 411.9 348.5 408.4 350.2 406.2 356.3 404 361.4 400.8 363 398.7 361.3 402.4 357.9 405.5 348.4 409.5 339.8 413.5 329.2 417.5 320 421.4 309.5 423.5 304.3 421.5 301.4 425.6 300.7 428.3 301.3 431.3 309 435.4 319.1 439.7 331 444.4 341.2 448.5 350.7 451.4 357.6 454.4 361.2 454 362.7ZM506.1 363L505 361.6 507.2 357.8 507.3 305.1 504.8 302.3 505.9 300.7 542.8 300.7 544.2 303.5 542.1 305.8 540.5 303.5 510.9 303.7 510 305.4 510 328.5 511 329.8 529.5 329.9 530.1 331.8 529.4 333.4 511.3 333.7 509.8 334.7 509.8 357.3 511.4 359.8 539.9 359.8 542.5 357.3 544 359.3 542.9 362.8 542.4 363.1ZM561 363L557.2 361.9 550.2 359.1 545.3 355.5 544 352.9 545.6 350 549.7 355.2 554.8 358 563.5 359.9 569.7 358.4 575.1 356.6 580.8 351.7 583.1 347.7 582.3 343.8 576.8 339.9 570.5 336.7 563 333.1 557.1 330.6 551.7 327.8 545.3 323.9 541.6 320.6 541.5 314.8 542.7 311.1 547.8 305.8 554.9 301.9 556.8 300.8 571 300.8 578 304.5 582.6 308.5 582.7 312.9 580.4 311.9 577.4 308.4 572.4 305.6 567.3 303.6 559 304.2 552.4 306.2 547.1 311.1 544.3 317.1 546.8 321 551.3 324 556.8 326.7 562.1 329.3 569.1 332.2 576.1 335 581.7 339.4 585.5 343.3 586.2 346.5 585.3 352.3 580.7 356.9 576.6 360.1 571.7 361.5 566.2 363.4ZM49.6 362.8L48.2 361.9 50.5 357 50.5 305.7 47.8 302.2 48.9 300.8 79.1 300.7 84.1 303.8 89.3 309.6 91.6 315.8 90.2 323.2 86.1 328.5 80.4 331.8 73.9 335.1 75.8 338.4 81.3 348.3 86.7 357.7 91 361.7 88.9 363 85.7 362.2 81.9 356.8 77.6 348.8 73.6 342.1 70 335.5 67.2 333.7 55.7 333.6 54.7 335.9 54.7 359.5 53.7 362.6ZM113.6 362.6L113.1 361.3 115.8 357.4 115.8 305.3 113 302 113.9 300.7 143.4 300.8 149 303.5 154.2 308.7 156.7 314.2 156.6 320.4 153.9 325.8 148.1 331.2 141.3 332.8 137.5 333.7 121.4 333.9 119.8 335.7 119.6 359.6 117.6 363ZM233.9 360.7L238.6 359.4 244.8 355.6 250.5 349.2 253.8 342 254.1 338.1 254.2 325 253.4 321.5 248.7 313.5 242.6 307.3 234.6 303.6 229.1 303.6 221.5 307.1 214.6 314.1 210.2 322.3 209.2 332.2 210.6 342.7 213.4 348.8 218.5 355.4 226 360.4 231.1 360.8ZM383.2 360.7L387.5 359.4 393.7 355.6 399 348.3 402.8 340.2 402.8 331.7 402.7 323.8 399.1 316.3 394.2 309 388 305.6 383.2 303.5 369.6 303.5 368.7 305.6 368.8 354.4 372.2 358.1 378.2 360.7ZM481.2 360.2L486.7 357 493.1 350 496.4 344.6 497.8 332.8 496.8 321.9 493.5 314.9 487.7 308.4 482.6 305.4 478.5 303.5 466.6 303.5 464.8 306.1 464.7 354.2 465.9 357.7 471.1 360.6 480.4 360.6ZM439.4 345.2L441.5 343.5 439.4 338.2 436.8 331.6 434.4 326.1 431.7 319.3 429 313 427.7 309.8 424.5 311.2 422.4 317.2 419.3 324.4 415.5 334.3 413.2 339.5 411.3 343.8 413.6 345.1ZM75.3 329.6L80 329 85.3 324.3 88.1 317.5 86.2 310.5 81.2 305.9 75.8 303.5 55.9 303.5 54.7 305.3 54.7 327.9 56.4 329.8ZM139.4 329.7L145.4 329.1 151.4 323.2 152.5 316.8 151.6 311.5 146.1 305.9 140.5 303.5 121.6 303.5 119.9 305.8 119.9 328.3 121.4 329.6ZM188.1 329.5L192 328.2 197.5 323 199 315.1 197.7 311 192.9 306 186.9 303.6 166.4 303.5 165 304.4 165 328.7 166.4 329.9ZM290.1 329.5L294 328.1 299.4 323.1 301.2 317.9 300.3 311.6 294.8 306 289.2 303.6 268.8 303.5 267.1 305.2 267.1 327.9 268.8 329.8ZM574.9 276L450.4 275.6 447.7 273.3 447.7 151.3 449.2 149.5 516.3 80.6 519.7 81.1 586.1 150.4 587.2 153.6 587.2 273.1 584.7 275.4ZM5.6 275.3L3.5 273.3 3.4 178.6 5.3 175.8 110.3 122.8 115 123.2 217.5 175.8 219.3 178.9 219.3 273.3 216.6 275.6 6.6 275.7ZM227.7 274.6L225.5 273.7 225.5 103.4 228.7 98.9 333.3 2.7 334.7 3.8 441.3 102.9 441.3 273.4 439.1 274.6ZM106.6 270.4L108.9 266.6 106.3 263.5 10.6 263.8 8.5 267.1 11.1 270.3ZM137.7 270.5L140.3 267.6 140.3 145.5 138.4 141.6 116 130.7 114.1 131.9 114.1 268.1 116.9 270.7ZM174.4 270.4L176.8 267.9 176.8 163.3 174.5 160 147.4 146.3 145.3 147.7 145.4 268.1 148.3 270.7ZM211.8 270.3L214.3 267.9 214.3 181.3 211.6 179.2 184.4 164.8 182 166.5 181.8 267.6 184.2 270.5ZM514.1 270.2L515.2 265.2 513.6 260 455.4 260.2 452.8 262 452.7 268.9 456.3 270.7ZM530.5 269.8L531.3 268.3 531.2 103.1 529.3 99.4 528.3 101.1 528.3 268.9ZM522.3 269.9L522.9 268.8 522.9 93.3 521.6 91.5 520.6 92.6 520.5 268.6ZM548.2 270.2L549.2 268.5 549.2 121.1 547.4 118.5 546 120.3 546 268.5ZM556.5 269.8L557.5 268.6 557.3 130 555.6 126.2 554.3 128.1 554.3 269.3ZM539.9 269.6L541 267.9 540.7 111.6 537.5 107.8 536.5 109.9 536.5 268.4ZM239.8 269.6L240.7 267.9 240.6 97.6 239.1 96.2 230.7 105.4 230.7 268.5 232.7 269.8ZM259.1 269.3L260.7 267.7 260.7 79.8 257.5 79.1 246.1 90.4 246 268 247 269.8ZM277.4 269.3L279 267.8 279 62.4 275.5 63.1 265 74.8 265 267.4 267.3 269.5ZM295.6 269.4L297.2 267.7 297.2 47.3 295.5 45.7 283.7 57.6 283.5 267.7 286.3 269.8ZM310.4 269.6L311.9 268.1 311.9 32.5 309.7 31.3 301.9 40.4 301.9 268.2 304.2 269.6ZM327 269.3L328.8 267.8 328.7 17.3 326.3 17.1 316.8 27.3 316.8 267.9 318.9 269.8ZM433.9 269.3L435.4 267.6 434.7 266.8 335.8 266.9 334.5 268.5 336.2 269.5ZM565 268.9L566.1 267.8 566.1 139.4 563.7 134.6 562.5 137.2 562.8 268.5ZM573.6 267.8L573.8 267.6 573.8 147.9 571.6 146.3 571.5 267.8ZM581.5 267.8L581.7 267.6 581.7 155.4 579.5 154.1 579.5 267.8ZM433.8 261.8L436.1 260.7 435.5 255.3 336 254.5 333 258.5 336.1 262ZM106.7 258.3L108.8 254.2 106.9 250.9 10.5 251.1 8.5 253.3 9.3 257.7ZM513.8 254.8L515.2 252.7 515 244.4 455.4 243.4 452.8 244.7 452.8 252.8 455.5 254.7ZM433.9 249.8L436.3 246 435.2 243.6 335.5 243.5 333.3 246.6 336.2 250ZM107.8 245.2L108.7 238.8 105.8 236.3 10.7 236.7 8.6 238.8 8.6 244.5ZM434.3 238.3L436.4 234.8 435.4 232.5 335.8 232.1 333.1 235.5 336.1 238.5ZM514.1 238L515.2 232.5 514.8 227.4 513.4 226 455.4 226.3 452.7 232.2 453.5 237.6ZM106.6 231.2L108.5 224.4 106.7 222.7 10.8 222.8 8.8 224.9 9.6 230.7ZM435.1 226.8L436.3 224.4 435.5 221.3 336.3 220.5 333.2 223.6 335.3 226.9ZM513.8 220.8L515.2 218.9 515.2 210 514 207.7 455.2 208 452.7 214.4 455.5 220.7ZM107.3 217L108.9 213.1 107.3 209.2 10.7 208.9 8.5 213 10.6 217.2ZM434.2 215.8L436.1 214.2 435.8 209.4 336.2 208.5 333.1 211.7 335.6 215.8ZM107.3 203L108.8 199.5 107.1 196.1 9.6 196.1 8.5 201.9 9.3 202.7ZM435.3 203.2L436.5 200.5 435.6 198.6 335.8 198.1 333.3 201.1 335.1 203.2ZM514 202.3L515.2 196.1 514.1 189.8 455.2 189.7 452.7 196 455.1 202.3ZM433.4 193.2L436.3 190.3 435.5 187.3 336 186.5 333.1 189.1 336 193.2ZM107.8 190.4L108.9 186.9 107.3 183 10.6 182.8 8.5 186.9 10.3 190.7ZM513.8 184.3L515.2 182.2 515.2 176 514 173.7 455.2 174 452.7 178.9 455.1 184.1ZM434.2 181.8L436.2 178.5 435.3 175.8 335.9 175.5 333.4 177.9 336.1 182ZM106.6 177.3L108.8 172.9 106.7 167.9 33 167.7 17 176.5 18.4 177.2ZM435.2 170.1L436.4 167.3 435.5 163.8 335.5 163.2 333.1 166.9 335.9 170.5ZM513.8 168.6L515.2 166.6 515.2 157.2 513.5 155.3 455.2 155.7 452.7 162 455.1 168.5ZM107.3 162.1L108.8 159.5 107.8 156.6 59 155.4 47 161 48.8 162.4ZM433.9 158.3L436.3 155 435.3 152.4 335.9 151.9 333.1 155.9 336.3 158.5ZM106.6 150.2L108.8 147.9 106.7 141.7 84.6 141.8 72.5 148.5 73.3 150.4ZM513.8 150.3L515.2 148.2 515.1 139.2 514 138.1 468.9 138.3 458.4 148.8 459.2 150.3ZM433.8 146.8L436.4 144.2 435.8 141.4 336.2 140.5 333.1 143.1 336.1 147ZM106.7 136.3L108.6 135 108.6 131.5 105.5 130.4 98.5 134.7 100.9 136.4ZM435.2 135.4L436.3 133.1 435.5 129.8 335.8 129.2 333.3 131.6 335.5 135.5ZM514.4 132.5L515.2 127 514.8 122.7 514 121.3 484.3 122.3 474.5 131.6 475.3 132.9ZM433.9 124.3L436.1 122.6 435.5 118 335.8 117.7 333.1 121.3 336.3 124.5ZM513.8 116.3L515.2 114.2 515.1 105.1 513.9 104.1 500.3 104.7 491.4 114.5 492.2 116.3ZM435.5 112.3L436.5 109.5 435.8 107.4 336.2 106.5 333.1 110.3 334.8 112.2ZM430.9 101.4L431.8 100.3 425.4 94.3 335.9 94.2 333.1 97.1 335.8 101.7ZM514.4 98.5L515.2 94.3 513.6 90.8 507.8 97.7 508.3 98.9ZM417.4 88.6L418.2 87.2 414.7 83.9 335.7 83.7 333.1 86.2 335.8 88.8ZM405.5 78.3L407.2 77.1 402.5 72.5 336.2 72.5 333.1 76.3 335.6 78.5ZM394.1 67.3L394.6 66.3 390 62.3 335.7 62.3 333.4 65.3 335.8 67.7ZM381.3 57.2L383.8 56.3 375.4 49.9 335.9 49.9 333.3 53.6 336 57.2ZM368.2 45L369.8 43.4 364.5 38.7 336 38.7 333.1 42.3 336.1 45.2ZM357.3 33.4L358 32.2 352 26.6 334.8 26.5 333.4 31.6 335.8 33.7ZM343.5 21.3L344.8 19.5 340.9 15.8 334.5 15.6 333.1 18 335.3 21.4Z"/>
+        <path transform="translate(114.65 392.00)" d="M10.83 0.26Q8.72 0.26 6.96 -0.42Q5.19 -1.11 3.88 -2.35Q2.57 -3.6 1.85 -5.3Q1.13 -6.99 1.13 -9Q1.13 -11.01 1.85 -12.7Q2.57 -14.4 3.9 -15.65Q5.22 -16.89 6.99 -17.58Q8.77 -18.26 10.88 -18.26Q13.17 -18.26 15 -17.51Q16.84 -16.77 18.1 -15.33L15.99 -13.27Q14.94 -14.32 13.72 -14.82Q12.5 -15.33 11.03 -15.33Q9.62 -15.33 8.41 -14.86Q7.2 -14.4 6.33 -13.55Q5.45 -12.7 4.98 -11.55Q4.5 -10.39 4.5 -9Q4.5 -7.64 4.98 -6.48Q5.45 -5.32 6.33 -4.46Q7.2 -3.6 8.38 -3.14Q9.57 -2.67 11.01 -2.67Q12.34 -2.67 13.6 -3.09Q14.17 -3.29 14.71 -3.6V-9.21H17.87V-2.03Q16.46 -0.9 14.59 -0.32Q12.73 0.26 10.83 0.26Z"/><path transform="translate(136.67 392.00)" d="M2.42 0V-18H15.56V-15.2H5.76V-10.52H14.45V-7.77H5.76V-2.8H15.92V0Z"/><path transform="translate(156.05 392.00)" d="M8 0.25Q5.89 0.25 3.96 -0.35Q2.03 -0.95 0.89 -1.91L2.06 -4.5Q3.15 -3.64 4.74 -3.08Q6.33 -2.52 8 -2.52Q9.42 -2.52 10.29 -2.82Q11.16 -3.13 11.57 -3.66Q11.98 -4.19 11.98 -4.86Q11.98 -5.68 11.39 -6.18Q10.81 -6.67 9.87 -6.98Q8.92 -7.28 7.78 -7.54Q6.64 -7.79 5.49 -8.14Q4.34 -8.49 3.4 -9.04Q2.46 -9.6 1.87 -10.52Q1.29 -11.44 1.29 -12.88Q1.29 -14.35 2.07 -15.57Q2.85 -16.79 4.46 -17.52Q6.07 -18.25 8.53 -18.25Q10.15 -18.25 11.75 -17.85Q13.34 -17.44 14.53 -16.66L13.47 -14.06Q12.27 -14.79 10.99 -15.14Q9.71 -15.48 8.5 -15.48Q7.13 -15.48 6.26 -15.15Q5.39 -14.82 4.99 -14.27Q4.59 -13.72 4.59 -13.03Q4.59 -12.21 5.18 -11.72Q5.76 -11.22 6.71 -10.93Q7.65 -10.64 8.79 -10.38Q9.94 -10.12 11.08 -9.78Q12.23 -9.44 13.17 -8.89Q14.11 -8.35 14.7 -7.43Q15.28 -6.51 15.28 -5.1Q15.28 -3.65 14.49 -2.43Q13.7 -1.22 12.08 -0.48Q10.47 0.25 8 0.25Z"/><path transform="translate(174.39 392.00)" d="M6.07 0V-15.17H0.1V-18H15.37V-15.17H9.41V0Z"/><path transform="translate(192.03 392.00)" d="M2.43 0V-18H5.77V0Z"/><path transform="translate(202.39 392.00)" d="M10.84 0.25Q8.75 0.25 6.97 -0.44Q5.19 -1.13 3.88 -2.38Q2.58 -3.63 1.85 -5.32Q1.13 -7 1.13 -9Q1.13 -11 1.85 -12.68Q2.58 -14.36 3.89 -15.62Q5.2 -16.87 6.97 -17.56Q8.74 -18.25 10.84 -18.25Q12.94 -18.25 14.7 -17.57Q16.46 -16.88 17.77 -15.63Q19.07 -14.39 19.8 -12.7Q20.52 -11.01 20.52 -9Q20.52 -6.99 19.8 -5.3Q19.07 -3.61 17.77 -2.37Q16.46 -1.12 14.7 -0.43Q12.94 0.25 10.84 0.25ZM10.84 -2.66Q12.2 -2.66 13.35 -3.13Q14.5 -3.6 15.35 -4.46Q16.2 -5.31 16.68 -6.47Q17.16 -7.62 17.16 -9.01Q17.16 -10.39 16.68 -11.54Q16.21 -12.68 15.35 -13.54Q14.5 -14.4 13.35 -14.87Q12.2 -15.34 10.84 -15.34Q9.47 -15.34 8.32 -14.87Q7.16 -14.4 6.3 -13.54Q5.44 -12.68 4.97 -11.53Q4.49 -10.38 4.49 -9.01Q4.49 -7.63 4.97 -6.48Q5.44 -5.32 6.3 -4.46Q7.16 -3.59 8.31 -3.13Q9.47 -2.66 10.84 -2.66ZM8.67 -19.47 12.16 -23H15.94L11.46 -19.47Z"/><path transform="translate(226.20 392.00)" d="M2.42 0V-18H5.17L15.09 -5.81V-18H18.41V0H15.66L5.73 -12.19V0Z"/><path transform="translate(258.45 392.00)" d="M2.43 0V-18H5.77V0Z"/><path transform="translate(268.81 392.00)" d="M2.42 0V-18H5.17L15.09 -5.81V-18H18.41V0H15.66L5.73 -12.19V0Z"/><path transform="translate(291.80 392.00)" d="M2.42 0V-18H5.17L12.32 -6.09L19.34 -18H22.09L22.11 0H18.95L18.93 -11.91L13.01 -2.06H11.52L5.61 -11.78V0Z"/><path transform="translate(318.52 392.00)" d="M10.84 0.25Q8.75 0.25 6.97 -0.44Q5.19 -1.13 3.88 -2.38Q2.58 -3.63 1.85 -5.32Q1.13 -7 1.13 -9Q1.13 -11 1.85 -12.68Q2.58 -14.36 3.89 -15.62Q5.2 -16.87 6.97 -17.56Q8.74 -18.25 10.84 -18.25Q12.94 -18.25 14.7 -17.57Q16.46 -16.88 17.77 -15.63Q19.07 -14.39 19.8 -12.7Q20.52 -11.01 20.52 -9Q20.52 -6.99 19.8 -5.3Q19.07 -3.61 17.77 -2.37Q16.46 -1.12 14.7 -0.43Q12.94 0.25 10.84 0.25ZM10.84 -2.66Q12.2 -2.66 13.35 -3.13Q14.5 -3.6 15.35 -4.46Q16.2 -5.31 16.68 -6.47Q17.16 -7.62 17.16 -9.01Q17.16 -10.39 16.68 -11.54Q16.21 -12.68 15.35 -13.54Q14.5 -14.4 13.35 -14.87Q12.2 -15.34 10.84 -15.34Q9.47 -15.34 8.32 -14.87Q7.16 -14.4 6.3 -13.54Q5.44 -12.68 4.97 -11.53Q4.49 -10.38 4.49 -9.01Q4.49 -7.63 4.97 -6.48Q5.44 -5.32 6.3 -4.46Q7.16 -3.59 8.31 -3.13Q9.47 -2.66 10.84 -2.66Z"/><path transform="translate(342.33 392.00)" d="M2.42 0V-18H10.85Q14.09 -18 15.79 -16.73Q17.49 -15.45 17.49 -13.32Q17.49 -11.88 16.82 -10.88Q16.2 -9.9 15.17 -9.36Q15.48 -9.26 15.79 -9.1Q17 -8.56 17.7 -7.51Q18.41 -6.45 18.41 -4.89Q18.41 -2.57 16.64 -1.29Q14.86 0 11.37 0ZM5.76 -2.62H11.16Q13.04 -2.62 14.04 -3.24Q15.04 -3.86 15.04 -5.21Q15.04 -6.56 14.04 -7.19Q13.04 -7.82 11.16 -7.82H5.76ZM5.76 -10.41H10.49Q12.24 -10.41 13.18 -11.03Q14.12 -11.65 14.12 -12.88Q14.12 -14.14 13.18 -14.76Q12.24 -15.38 10.49 -15.38H5.76Z"/><path transform="translate(364.06 392.00)" d="M2.43 0V-18H5.77V0Z"/><path transform="translate(374.42 392.00)" d="M2.43 0V-18H5.77V-2.83H15.17V0Z"/><path transform="translate(391.98 392.00)" d="M2.43 0V-18H5.77V0Z"/><path transform="translate(402.35 392.00)" d="M-0.13 0 7.97 -18H11.26L19.39 0H15.89L14.09 -4.17H5.09L3.32 0ZM12.96 -6.79 9.59 -14.66 6.22 -6.79Z"/><path transform="translate(423.77 392.00)" d="M2.42 0V-18H9.8Q13.4 -18 15.44 -16.3Q17.49 -14.61 17.49 -11.6Q17.49 -9.62 16.56 -8.19Q15.63 -6.76 13.91 -6.02Q13.78 -5.94 13.65 -5.89L17.79 0H14.19L10.52 -5.27Q10.18 -5.25 9.82 -5.25H5.76V0ZM5.76 -8H9.67Q11.88 -8 13 -8.95Q14.12 -9.9 14.12 -11.6Q14.12 -13.32 13 -14.25Q11.88 -15.17 9.67 -15.17H5.76Z"/><path transform="translate(444.72 392.00)" d="M2.43 0V-18H5.77V0Z"/><path transform="translate(455.09 392.00)" d="M-0.13 0 7.97 -18H11.26L19.39 0H15.89L14.09 -4.17H5.09L3.32 0ZM12.96 -6.79 9.59 -14.66 6.22 -6.79Z"/><rect x="0" y="381.38" width="93.05" height="3.24"/><rect x="495.95" y="381.38" width="92.05" height="3.24"/>
+      </symbol>
+      <symbol id="i-cama" viewBox="0 0 24 24"><path d="M3 18V7m0 6h18v5M21 13v-2a3 3 0 0 0-3-3h-7v5M7 11.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></symbol>
+      <symbol id="i-bano" viewBox="0 0 24 24"><path d="M4 12h16v2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-2zM6 12V5a2 2 0 0 1 3.5-1.3M7 19l-1 2m11-2 1 2"/></symbol>
+      <symbol id="i-area" viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h5V4m11 11h-5v5"/></symbol>
+      <symbol id="i-lugar" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="saltar" href="#principal">Saltar al contenido</a>
+
+  <header class="encabezado">
+    <div class="contenedor">
+      <a class="marca" href="#inicio" aria-label="JR Propiedades, ir al inicio">
+        <svg width="95" height="64" viewBox="0 0 588 395" fill="currentColor" role="img" aria-hidden="true"><use href="#logo-jr"/></svg>
+      </a>
+      <nav class="navegacion" id="navegacion" aria-label="Navegación principal">
+        <ul class="menu">
+          <li><a href="#propiedades">Propiedades</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <a class="boton contacto-rapido" href="#contacto">Contáctanos</a>
+      <button class="abrir-menu" type="button" aria-expanded="false" aria-controls="navegacion" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="principal">
+    <section id="inicio" class="contenedor portada" aria-labelledby="titulo-portada">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=70&auto=format&fit=crop" width="1200" height="800" alt="Living luminoso con sillones claros, plantas y ventanales" fetchpriority="high">
+      </figure>
+      <div class="tarjeta">
+        <span class="etiqueta">Gestión inmobiliaria personalizada para la Región de O’Higgins</span>
+        <h1 id="titulo-portada">Una estrategia diferente para cada propiedad</h1>
+        <p>Vendemos, arrendamos y administramos tu propiedad con un plan hecho a tu medida, para que se concrete rápido y en las mejores condiciones.</p>
+        <div class="acciones">
+          <a class="boton" href="#propiedades">Ver propiedades</a>
+          <a class="boton secundario" href="#contacto" data-servicio="Vender">Quiero vender mi propiedad</a>
+        </div>
+        <div class="cifras" aria-label="JR Propiedades en cifras">
+          <div style="text-align: center;">
+            <strong style="text-align: center; margin: 0 auto;">20</strong>
+            <span style="display: block; text-align: center;">Años de experiencia</span>
+          </div>
+          <div style="text-align: center;">
+            <strong style="text-align: center; margin: 0 auto;">4</strong>
+            <span style="display: block; text-align: center;">Servicios integrales</span>
+          </div>
+          <div style="text-align: center;">
+            <strong style="text-align: center; margin: 0 auto; display: flex; align-items: center; justify-content: center; height: 2rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--tinta); display: inline-block;">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </strong>
+            <span style="display: block; text-align: center;">Contacto permanente</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="propiedades" class="seccion" aria-labelledby="titulo-propiedades">
+      <div class="contenedor">
+        <div class="cabecera-seccion">
+          <div>
+            <span class="etiqueta">Catálogo</span>
+            <h2 id="titulo-propiedades">Propiedades disponibles</h2>
+          </div>
+          <div class="filtros" role="group" aria-label="Filtrar propiedades">
+            <button type="button" data-filtro="todas" aria-pressed="true">Todas</button>
+            <button type="button" data-filtro="venta" aria-pressed="false">En venta</button>
+            <button type="button" data-filtro="arriendo" aria-pressed="false">En arriendo</button>
+            <button type="button" data-filtro="parcela" aria-pressed="false">Parcelas de agrado</button>
+          </div>
+        </div>
+        <div class="grilla" id="grilla" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="contenedor" aria-labelledby="titulo-alerta" style="margin-top:clamp(2.5rem,5vw,4.5rem); margin-bottom:clamp(2.5rem,5vw,4.5rem);">
+      <div class="alerta">
+        <div class="texto">
+          <span class="etiqueta">AVISOS DE NUEVAS PROPIEDADES</span>
+          <h2 id="titulo-alerta">Sé el primero en enterarte</h2>
+          <p style="margin-top:1rem; text-align:justify;">Muchas oportunidades se gestionan primero de forma interna. Dinos qué tipo de terreno o inmueble buscas y te daremos aviso prioritario en cuanto ingrese una cartera con tus requisitos.</p>
+        </div>
+        <form id="form-alerta" novalidate>
+          <div>
+            <label for="alerta-correo">Correo electrónico</label>
+            <input id="alerta-correo" name="correo" type="email" autocomplete="email" required placeholder="">
+            <p class="error" id="error-alerta-correo" aria-live="polite"></p>
+          </div>
+          <div>
+            <label for="alerta-tipo">Qué buscas</label>
+            <textarea id="alerta-tipo" name="tipo" rows="5" minlength="10" maxlength="4000" style="min-height:140px; width:100%; resize:vertical; padding:0.85rem; border:1px solid var(--linea); border-radius:var(--radio); font-family:var(--sans); font-size:0.95rem; line-height:1.5; box-sizing:border-box;" placeholder="Redacta en detalle la propiedad que buscas (sector, orientación, presupuesto, requerimientos de espacio, jardín, etc.)."></textarea>
+          </div>
+          <button class="boton" type="submit" style="margin-top:0.5rem;">Dime lo que buscas</button>
+          <p class="estado" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- SECCIÓN QUÉ HACEMOS · NUESTROS SERVICIOS (LÁMINA 2) -->
+    <section id="servicios" class="seccion" aria-labelledby="titulo-servicios" style="background-color:var(--greige); border-top:1px solid rgba(31,30,30,0.06); border-bottom:1px solid rgba(31,30,30,0.06);">
+      <div class="contenedor" style="text-align:center;">
+        <div class="cabecera-seccion" style="text-align:center; margin-bottom:1.5rem;">
+          <div style="margin:0 auto;">
+            <span class="etiqueta" style="font-size:0.95rem; letter-spacing:0.12em; text-transform:uppercase;">QUÉ HACEMOS</span>
+            <h2 id="titulo-servicios" style="font-family:var(--serif); font-size:clamp(2rem,3.2vw,2.75rem); color:var(--tinta); margin-top:0.35rem;">Nuestros servicios</h2>
+          </div>
+        </div>
+        <div style="max-width:820px; margin:0 auto; padding:0 1rem;">
+          <p style="font-family:var(--sans); font-size:1.05rem; line-height:1.75; color:var(--texto-suave); margin-bottom:2rem; text-align:justify;">
+            Si buscas vender, comprar o poner en arriendo tu propiedad en San Fernando y la Provincia de Colchagua, diseñamos una estrategia a tu medida. Desde calcular el valor real de tu propiedad hasta la firma del contrato. Buscamos al arrendatario o comprador correcto, lo evaluamos a fondo y preparamos toda la "papelería" para que tú no tengas que preocuparte de los trámites. Te acompañamos desde la primera visita hasta la entrega de tus llaves.
+          </p>
+          <div class="servicios-pildoras">
+            <a href="#contacto" data-servicio="Arrendar" class="pildora-link">Arriendo</a>
+            <a href="#contacto" data-servicio="Comprar" class="pildora-link">Compra</a>
+            <a href="#contacto" class="pildora-link">Administración</a>
+            <a href="#contacto" data-servicio="Vender" class="pildora-link">Venta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN NOSOTROS (LÁMINA 4) -->
+    <section id="nosotros" class="seccion" aria-labelledby="titulo-nosotros" style="background-color:var(--greige); padding-top:clamp(3.5rem,6vw,5.5rem); padding-bottom:clamp(3.5rem,6vw,5.5rem);">
+      <div class="contenedor">
+        <div class="nosotros-grid">
+          <div>
+            <span class="etiqueta" style="letter-spacing:0.14em; text-transform:uppercase; font-size:0.85rem; color:var(--gris);">NOSOTROS</span>
+            <h2 id="titulo-nosotros" style="font-family:var(--serif); font-size:clamp(2.4rem, 3.8vw, 3.3rem); color:var(--tinta); line-height:1.15; margin:1.25rem 0 1.75rem; letter-spacing:-0.015em; font-weight:500;">
+              Gestión a escala humana y<br>compromiso personal
+            </h2>
+            <p style="font-family:var(--sans); font-size:1rem; line-height:1.75; color:var(--texto-suave); margin-bottom:1.5rem; max-width:520px;">
+              Para nosotros, ninguna propiedad es un número más en un catálogo. Llevamos 20 años en la provincia trabajando de manera cercana: nos tomamos el tiempo de conocer tus prioridades para definir la estrategia que realmente te conviene.
+            </p>
+            <p style="font-family:var(--sans); font-size:1rem; line-height:1.75; color:var(--texto-suave); margin:0; max-width:520px;">
+              Te acompañamos de forma directa en cada paso, negociando con criterio comercial y cuidando cada aspecto del negocio a fin de lograr un cierre ágil y exento de problemas.
+            </p>
+          </div>
+          <div style="text-align:center;">
+            <div style="display:inline-block; width:100%; max-width:400px;">
+              <img src="jessica.jpeg" alt="Laura Jessica Reyes Mondaca - Directora Ejecutiva" style="width:100%; height:auto; aspect-ratio:366/354; object-fit:cover; border-radius:3px; display:block;">
+              <div style="margin-top:1.1rem; text-align:center;">
+                <p style="font-family:var(--sans); font-size:1.05rem; font-weight:600; color:var(--tinta); margin:0; letter-spacing:0.01em;">Laura Jessica Reyes Mondaca</p>
+                <p style="font-family:var(--sans); font-size:0.95rem; font-weight:400; color:var(--texto-suave); margin:0.25rem 0 0;">Directora Ejecutiva</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="disciplinas-grid">
+          <div class="disciplina-item"><p>Asesoría<br>Legal</p></div>
+          <div class="disciplina-item"><p>Tasaciones<br>Inmobiliarias</p></div>
+          <div class="disciplina-item"><p>Arquitectura e<br>Interiorismo</p></div>
+          <div class="disciplina-item"><p>Staff de Obras Menores<br>y Remodelaciones</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN CÓMO LO HACEMOS · PASO A PASO (LÁMINA 6) -->
+    <section id="como-lo-hacemos" class="seccion" aria-labelledby="titulo-como-lo-hacemos" style="background-color:var(--greige); border-top:1px solid rgba(31,30,30,0.06); padding-top:clamp(4rem,7vw,6rem); padding-bottom:clamp(4rem,7vw,6rem);">
+      <div class="contenedor">
+        <div style="margin-bottom:3.5rem;">
+          <span class="etiqueta" style="letter-spacing:0.14em; text-transform:uppercase; font-size:0.85rem; color:var(--gris);">COMO LO HACEMOS</span>
+          <h2 id="titulo-como-lo-hacemos" style="font-family:var(--serif); font-size:clamp(2.4rem, 3.8vw, 3.3rem); color:var(--tinta); font-weight:500; margin-top:0.4rem; letter-spacing:-0.01em;">Paso a paso</h2>
+        </div>
+
+        <div class="pasos-contenedor-l6">
+          <div class="pasos-grid-l6">
+            <div class="paso-card-l6">
+              <div class="paso-num-l6">01</div>
+              <div>
+                <h3>Un Buen precio</h3>
+                <p>Un tasador y un agente comercial determinan un precio real y te acompañan en todo el proceso como contacto permanente.</p>
+              </div>
+            </div>
+
+            <div class="paso-card-l6">
+              <div class="paso-num-l6">02</div>
+              <div>
+                <h3>Nos encargamos de todo</h3>
+                <p>Organizamos sesiones de fotografía y video, campañas de promoción y la gestión de las visitas.</p>
+              </div>
+            </div>
+
+            <div class="paso-card-l6">
+              <div class="paso-num-l6">03</div>
+              <div>
+                <h3>Excelente exposición en la red</h3>
+                <p>Promocionamos tu propiedad en Instagram, Facebook y Portal Inmobiliario, entre otros, para llegar a más compradores.</p>
+              </div>
+            </div>
+
+            <div class="paso-card-l6">
+              <div class="paso-num-l6">04</div>
+              <div>
+                <h3>¡Vendido!</h3>
+                <p>Negociamos con los compradores, redactamos la promesa de compraventa y realizamos los trámites notariales.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:left; margin-top:2rem;">
+          <a href="#contacto" style="display:inline-flex; align-items:center; gap:0.4rem; font-family:var(--sans); font-size:0.92rem; font-weight:600; color:var(--tinta); text-decoration:none; padding:0.75rem 1.25rem; border:1px solid var(--tinta); border-radius:var(--radio); background:transparent; transition:background .2s, color .2s;">
+            Iniciar la gestión de mi propiedad →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="contacto seccion" style="margin-top:clamp(3.5rem,8vw,6.5rem)" aria-labelledby="titulo-contacto">
+      <div class="contenedor">
+        <div class="lema">
+          <span class="etiqueta" style="color:#E6E1DD">Contacto</span>
+          <h2>¿Quieres vender tu propiedad?</h2>
+          <p style="margin-top:1rem">Déjanos tus datos y un agente te contactará a la brevedad para diseñar la estrategia de tu propiedad.</p>
+        </div>
+        <form class="formulario" id="form-contacto" novalidate>
+          <h3 id="titulo-contacto">Registra tus datos</h3>
+          <div>
+            <label for="nombre">Nombre completo</label>
+            <input id="nombre" name="nombre" autocomplete="name" required minlength="3">
+            <p class="error" id="error-nombre" aria-live="polite"></p>
+          </div>
+          <div class="dos">
+            <div>
+              <label for="correo">Correo electrónico</label>
+              <input id="correo" name="correo" type="email" autocomplete="email" required>
+              <p class="error" id="error-correo" aria-live="polite"></p>
+            </div>
+            <div>
+              <label for="telefono">Teléfono</label>
+              <input id="telefono" name="telefono" type="tel" autocomplete="tel">
+              <p class="error" id="error-telefono" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="dos">
+            <div>
+              <label for="servicio">¿Qué necesitas?</label>
+              <select id="servicio" name="servicio">
+                <option>Vender</option>
+                <option>Arrendar</option>
+                <option>Comprar</option>
+              </select>
+            </div>
+            <div>
+              <label for="tipo">Tipo de propiedad</label>
+              <select id="tipo" name="tipo">
+                <option>Casa</option><option>Departamento</option><option>Parcela de agrado</option><option>Terreno</option><option>Local u oficina</option>
+              </select>
+            </div>
+          </div>
+          <div class="dos">
+            <div>
+              <label for="region">Región</label>
+              <select id="region" name="region" required>
+                <option value="Arica y Parinacota">Arica y Parinacota</option>
+                <option value="Tarapacá">Tarapacá</option>
+                <option value="Antofagasta">Antofagasta</option>
+                <option value="Atacama">Atacama</option>
+                <option value="Coquimbo">Coquimbo</option>
+                <option value="Valparaíso">Valparaíso</option>
+                <option value="Metropolitana de Santiago">Metropolitana de Santiago</option>
+                <option value="Libertador General Bernardo O’Higgins" selected>Libertador General Bernardo O’Higgins</option>
+                <option value="Maule">Maule</option>
+                <option value="Ñuble">Ñuble</option>
+                <option value="Biobío">Biobío</option>
+                <option value="La Araucanía">La Araucanía</option>
+                <option value="Los Ríos">Los Ríos</option>
+                <option value="Los Lagos">Los Lagos</option>
+                <option value="Aysén del Gral. Carlos Ibáñez del Campo">Aysén del Gral. Carlos Ibáñez del Campo</option>
+                <option value="Magallanes y de la Antártica Chilena">Magallanes y de la Antártica Chilena</option>
+              </select>
+            </div>
+            <div>
+              <label for="comuna">Comuna</label>
+              <select id="comuna" name="comuna" required></select>
+            </div>
+          </div>
+          <label class="consentimiento"><input type="checkbox" id="acepto" name="acepto" required> <span>Acepto que JR Propiedades use estos datos solo para contactarme por mi solicitud.</span></label>
+          <p class="error" id="error-acepto" aria-live="polite"></p>
+          <button class="boton" type="submit">Enviar</button>
+          <p class="estado" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="marco">
+        <div>
+          <a class="marca" href="#inicio" aria-label="JR Propiedades, volver al inicio"><svg width="143" height="96" viewBox="0 0 588 395" fill="currentColor" role="img" aria-hidden="true"><use href="#logo-jr"/></svg></a>
+        </div>
+        <div>
+          <h2>Menú</h2>
+          <ul>
+            <li><a href="#propiedades">Propiedades en venta</a></li>
+            <li><a href="#propiedades">Propiedades en arriendo</a></li>
+            <li><a href="#propiedades">Parcelas de agrado</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Servicios</h2>
+          <ul>
+            <li><a href="#servicios">Vende</a></li>
+            <li><a href="#servicios">Arrienda</a></li>
+            <li><a href="#servicios">Compra</a></li>
+            <li><a href="#servicios">Administra</a></li>
+            <li><a href="#contacto">Tasación</a></li>
+            <li><a href="#titulo-alerta">Alerta de propiedades</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contacto</h2>
+          <ul>
+            <li><a href="tel:+56990704040">+56 9 9070 4040</a></li>
+            <li><a href="mailto:contacto@jrpropiedades.cl">contacto@jrpropiedades.cl</a></li>
+          </ul>
+          <div class="redes">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar Instagram oficial de JR Propiedades" class="red-instagram">
+              <svg class="icono-red" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+              <svg class="simbolo-redireccion" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 1.5h6v6M8.5 1.5L1.5 8.5"/></svg>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Visitar Facebook oficial de JR Propiedades" class="red-facebook">
+              <svg class="icono-red" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+              <svg class="simbolo-redireccion" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 1.5h6v6M8.5 1.5L1.5 8.5"/></svg>
+            </a>
+            <a href="https://wa.me/56990704040" target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp a JR Propiedades" class="red-whatsapp">
+              <svg class="icono-red" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
+                <path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.8.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 12 21.8zm8.4-18.3A11.8 11.8 0 0 0 .2 11.9c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3z"/>
+              </svg>
+              <svg class="simbolo-redireccion" viewBox="0 0 10 10" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 1.5h6v6M8.5 1.5L1.5 8.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp" href="https://wa.me/56990704040" aria-label="Escríbenos por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.8.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8a9.9 9.9 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.9 9.9 0 1 1 12 21.8zm8.4-18.3A11.8 11.8 0 0 0 .2 11.9c0 2.1.5 4.1 1.6 5.9L.1 24l6.3-1.7a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.3z"/></svg>
+  </a>
+
+  <script>
+    (function () {
+      var U = 'https://images.unsplash.com/';
+      var q = '?w=720&q=65&auto=format&fit=crop';
+      var propiedades = [
+        { tipo: 'venta', titulo: 'Departamento Edificio Alto San Fernando', lugar: 'San Fernando, O’Higgins', dorm: 3, banos: 2, m2: 86, precio: 'UF 3.450', foto: 'photo-1522708323590-d24dbb6b0267', alt: 'Living comedor con sillón rojo y ventanales' },
+        { tipo: 'venta', titulo: 'Departamento Edificio Puertas del Sur', lugar: 'San Fernando, O’Higgins', dorm: 2, banos: 2, m2: 64, precio: 'UF 2.690', foto: 'photo-1600607687939-ce8a6c25118c', alt: 'Living amplio con sofá blanco y muro de madera' },
+        { tipo: 'venta', titulo: 'Departamento Edificio Alcázar', lugar: 'San Fernando, O’Higgins', dorm: 3, banos: 2, m2: 92, precio: 'UF 3.980', foto: 'photo-1560448204-e02f11c3d0e2', alt: 'Living con grandes ventanales y vista a la ciudad' },
+        { tipo: 'venta', titulo: 'Departamento Don Olegario Lazo', lugar: 'San Fernando, O’Higgins', dorm: 2, banos: 1, m2: 58, precio: 'UF 2.250', foto: 'photo-1493809842364-78817add7ffb', alt: 'Living con sofá azul y piso de parqué' },
+        { tipo: 'arriendo', titulo: 'Departamento Edificio Alcázar', lugar: 'San Fernando, O’Higgins', dorm: 2, banos: 2, m2: 70, precio: '$520.000 / mes', foto: 'photo-1586023492125-27b2c045efd7', alt: 'Rincón de lectura con sillón amarillo' },
+        { tipo: 'arriendo', titulo: 'Casa Giuseppe Bartolucci', lugar: 'San Fernando, O’Higgins', dorm: 4, banos: 3, m2: 160, precio: '$890.000 / mes', foto: 'photo-1570129477492-45c003edd2be', alt: 'Casa blanca de dos pisos con jardín' },
+        { tipo: 'arriendo', titulo: 'Departamento Puertas del Sur', lugar: 'San Fernando, O’Higgins', dorm: 1, banos: 1, m2: 42, precio: '$380.000 / mes', foto: 'photo-1484154218962-a197022b5858', alt: 'Cocina blanca con isla y lámparas negras' },
+        { tipo: 'parcela', titulo: 'Parcela de agrado con casa', lugar: 'Sector Rinconada, San Fernando', dorm: 3, banos: 2, m2: 5000, precio: 'UF 7.900', foto: 'photo-1600596542815-ffad4c1539a9', alt: 'Casa moderna blanca con piscina' }
+      ];
+      var etiquetas = { venta: 'En venta', arriendo: 'En arriendo', parcela: 'Parcela' };
+      var grilla = document.getElementById('grilla');
+      function num(n) { return n.toLocaleString('es-CL'); }
+      function tarjeta(p) {
+        var msjWa = encodeURIComponent('Hola, me interesa información sobre: ' + p.titulo);
+        var enlaceWa = 'https://wa.me/56990704040?text=' + msjWa;
+        return '<article class="propiedad">' +
+          '<figure><img src="' + U + p.foto + q + '" width="720" height="540" loading="lazy" decoding="async" alt="' + p.alt + '"><span class="sello">' + etiquetas[p.tipo] + '</span></figure>' +
+          '<div class="cuerpo"><h3>' + p.titulo + '</h3>' +
+          '<p class="lugar"><svg class="icono" aria-hidden="true"><use href="#i-lugar"/></svg>' + p.lugar + '</p>' +
+          '<ul class="datos" aria-label="Características">' +
+            '<li><svg class="icono" aria-hidden="true"><use href="#i-cama"/></svg>' + p.dorm + '<span class="ocultar"> dormitorios</span></li>' +
+            '<li><svg class="icono" aria-hidden="true"><use href="#i-bano"/></svg>' + p.banos + '<span class="ocultar"> baños</span></li>' +
+            '<li><svg class="icono" aria-hidden="true"><use href="#i-area"/></svg>' + num(p.m2) + ' m²</li>' +
+          '</ul>' +
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.85rem; padding-top:0.75rem; border-top:1px solid rgba(31,30,30,0.06);">' +
+            '<p class="precio" style="margin:0;">' + p.precio + '</p>' +
+            '<a href="' + enlaceWa + '" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.35rem; font-size:0.85rem; font-family:var(--sans); font-weight:500; color:#128C7E; text-decoration:none; padding:0.35rem 0.65rem; border:1px solid rgba(18,140,126,0.25); border-radius:var(--radio); background:rgba(37,211,102,0.06); transition:background .2s;">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c.3 2 1.8 3.8 4 4.8l1-1 2 .8"/></svg>' +
+              '<span>Consultar</span>' +
+            '</a>' +
+          '</div></div></article>';
+      }
+      function pintar(filtro) {
+        grilla.innerHTML = propiedades.filter(function (p) { return filtro === 'todas' || p.tipo === filtro; }).map(tarjeta).join('');
+      }
+      document.querySelectorAll('[data-filtro]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('[data-filtro]').forEach(function (o) { o.setAttribute('aria-pressed', String(o === b)); });
+          pintar(b.dataset.filtro);
+        });
+      });
+      pintar('todas');
+
+      var boton = document.querySelector('.abrir-menu');
+      var nav = document.getElementById('navegacion');
+      function menu(abrir) {
+        boton.setAttribute('aria-expanded', String(abrir));
+        boton.setAttribute('aria-label', abrir ? 'Cerrar menú' : 'Abrir menú');
+        nav.classList.toggle('abierta', abrir);
+      }
+      boton.addEventListener('click', function () { menu(boton.getAttribute('aria-expanded') !== 'true'); });
+      nav.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') menu(false); });
+
+      var reCorreo = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+      function marcar(campo, mensaje) {
+        var err = document.getElementById('error-' + campo.id);
+        campo.setAttribute('aria-invalid', mensaje ? 'true' : 'false');
+        if (err) err.textContent = mensaje || '';
+        return !mensaje;
+      }
+      function exito(form, texto) {
+        var e = form.querySelector('.estado');
+        e.textContent = texto; e.classList.add('visible'); form.reset();
+      }
+      document.getElementById('form-contacto').addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var f = ev.target, ok = true;
+        ok = marcar(f.nombre, f.nombre.value.trim().length < 3 ? 'Ingresa tu nombre completo.' : '') && ok;
+        ok = marcar(f.correo, reCorreo.test(f.correo.value.trim()) ? '' : 'Ingresa un correo válido.') && ok;
+        ok = marcar(f.telefono, !f.telefono.value || /^[+\d\s().-]{8,20}$/.test(f.telefono.value) ? '' : 'Ingresa un teléfono válido.') && ok;
+        ok = marcar(f.acepto, f.acepto.checked ? '' : 'Debes aceptar el uso de tus datos.') && ok;
+        if (!ok) { f.querySelector('[aria-invalid="true"]').focus(); return; }
+        exito(f, 'Formulario de demostración: en el sitio final esta solicitud llegará a contacto@jrpropiedades.cl y un agente te contactará.');
+      });
+      document.getElementById('form-alerta').addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var f = ev.target;
+        if (!marcar(f.correo, reCorreo.test(f.correo.value.trim()) ? '' : 'Ingresa un correo válido.')) { f.correo.focus(); return; }
+        exito(f, 'Listo. En el sitio final te avisaremos por correo cuando aparezca una propiedad como la que buscas.');
+      });
+
+      var mapaChile = {"Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"], "Tarapacá": ["Iquique", "Alto Hospicio", "Pozo Almonte", "Camiña", "Colchane", "Huara", "Pica"], "Antofagasta": ["Antofagasta", "Mejillones", "Sierra Gorda", "Taltal", "Calama", "Ollagüe", "San Pedro de Atacama", "Tocopilla", "María Elena"], "Atacama": ["Copiapó", "Caldera", "Tierra Amarilla", "Chañaral", "Diego de Almagro", "Vallenar", "Alto del Carmen", "Freirina", "Huasco"], "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "La Higuera", "Paiguano", "Vicuña", "Illapel", "Canela", "Los Vilos", "Salamanca", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"], "Valparaíso": ["Valparaíso", "Casablanca", "Concón", "Juan Fernández", "Puchuncaví", "Quintero", "Viña del Mar", "Isla de Pascua", "Los Andes", "Calle Larga", "Rinconada", "San Esteban", "La Ligua", "Cabildo", "Papudo", "Petorca", "Zapallar", "Quillota", "La Calera", "Hijuelas", "La Cruz", "Nogales", "San Antonio", "Algarrobo", "Cartagena", "El Quisco", "El Tabo", "Santo Domingo", "San Felipe", "Catemu", "Llaillay", "Panquehue", "Putaendo", "Santa María", "Quilpué", "Limache", "Olmué", "Villa Alemana"], "Metropolitana de Santiago": ["Santiago", "Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"], "Libertador General Bernardo O’Higgins": ["San Fernando", "Rancagua", "Codegua", "Coinco", "Coltauco", "Doñihue", "Graneros", "Las Cabras", "Machalí", "Malloa", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Pichilemu", "La Estrella", "Litueche", "Marchihue", "Navidad", "Paredones", "Chépica", "Chimbarongo", "Lolol", "Nancagua", "Palmilla", "Peralillo", "Placilla", "Pumanque", "Santa Cruz"], "Maule": ["Talca", "Constitución", "Curepto", "Empedrado", "Maule", "Pelarco", "Pencahue", "Río Claro", "San Clemente", "San Rafael", "Cauquenes", "Chanco", "Pelluhue", "Curicó", "Hualañé", "Licantén", "Molina", "Rauco", "Romeral", "Sagrada Familia", "Teno", "Vichuquén", "Linares", "Colbún", "Longaví", "Parral", "Retiro", "San Javier", "Villa Alegre", "Yerbas Buenas"], "Ñuble": ["Chillán", "Bulnes", "Cobquecura", "Coelemu", "Coihueco", "Chillán Viejo", "El Carmen", "Ninhue", "Ñiquén", "Pemuco", "Pinto", "Portezuelo", "Quillón", "Quirihue", "Ránquil", "San Carlos", "San Fabián", "San Ignacio", "San Nicolás", "Treguaco", "Yungay"], "Biobío": ["Concepción", "Coronel", "Chiguayante", "Florida", "Hualqui", "Lota", "Penco", "San Pedro de la Paz", "Santa Juana", "Talcahuano", "Tomé", "Hualpén", "Lebu", "Arauco", "Cañete", "Contulmo", "Curanilahue", "Los Álamos", "Tirúa", "Los Ángeles", "Antuco", "Cabrero", "Laja", "Mulchén", "Nacimiento", "Negrete", "Quilaco", "Quilleco", "San Rosendo", "Santa Bárbara", "Tucapel", "Yumbel", "Alto Biobío"], "La Araucanía": ["Temuco", "Carahue", "Cunco", "Curarrehue", "Freire", "Galvarino", "Gorbea", "Lautaro", "Loncoche", "Melipeuco", "Nueva Imperial", "Padre Las Casas", "Perquenco", "Pitrufquén", "Pucón", "Saavedra", "Teodoro Schmidt", "Toltén", "Vilcún", "Villarrica", "Cholchol", "Angol", "Collipulli", "Curacautín", "Ercilla", "Lonquimay", "Los Sauces", "Lumaco", "Purén", "Renaico", "Traiguén", "Victoria"], "Los Ríos": ["Valdivia", "Corral", "Lanco", "Los Lagos", "Máfil", "Mariquina", "Paillaco", "Panguipulli", "La Unión", "Futrono", "Lago Ranco", "Río Bueno"], "Los Lagos": ["Puerto Montt", "Calbuco", "Cochamó", "Fresia", "Frutillar", "Los Muermos", "Llanquihue", "Maullín", "Puerto Varas", "Castro", "Ancud", "Chonchi", "Curaco de Vélez", "Dalcahue", "Puqueldón", "Queilén", "Quellón", "Quemchi", "Quinchao", "Osorno", "Puerto Octay", "Purranque", "Puyehue", "Río Negro", "San Juan de la Costa", "San Pablo", "Chaitén", "Futaleufú", "Hualaihué", "Palena"], "Aysén del Gral. Carlos Ibáñez del Campo": ["Coyhaique", "Lago Verde", "Aysén", "Cisnes", "Guaitecas", "Cochrane", "O’Higgins", "Tortel", "Chile Chico", "Río Ibáñez"], "Magallanes y de la Antártica Chilena": ["Punta Arenas", "Laguna Blanca", "Río Verde", "San Gregorio", "Cabo de Hornos", "Antártica", "Porvenir", "Primavera", "Timaukel", "Natales", "Torres del Paine"]};
+      var selectRegion = document.getElementById('region');
+      var selectComuna = document.getElementById('comuna');
+
+      function actualizarComunas(regionNombre, comunaPredeterminada) {
+        if (!selectComuna) return;
+        var comunas = mapaChile[regionNombre] || [];
+        selectComuna.innerHTML = '';
+        comunas.forEach(function (c) {
+          var opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c;
+          if (comunaPredeterminada && c.toLowerCase() === comunaPredeterminada.toLowerCase()) {
+            opt.selected = true;
+          }
+          selectComuna.appendChild(opt);
+        });
+      }
+
+      if (selectRegion && selectComuna) {
+        selectRegion.addEventListener('change', function () {
+          actualizarComunas(this.value);
+        });
+        actualizarComunas(selectRegion.value, 'San Fernando');
+      }
+
+      document.querySelectorAll('[data-servicio]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var val = this.getAttribute('data-servicio');
+          var sel = document.getElementById('servicio');
+          if (sel && val) {
+            for (var i = 0; i < sel.options.length; i++) {
+              if (sel.options[i].value === val) {
+                sel.value = val;
+                break;
+              }
+            }
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
