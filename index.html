@@ -55,7 +55,7 @@
     .encabezado .contenedor { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 84px; }
     .marca { display: inline-flex; color: var(--tinta); }
     .marca svg { height: 64px; width: auto; }
-    .menu { display: flex; gap: clamp(1rem, 2.5vw, 2.25rem); list-style: none; margin: 0; padding: 0; }
+    .menu { display: flex; gap: clamp(1rem, 2.5vw, 2.25rem);.menu li { list-style: none !important; }; margin: 0; padding: 0; }
     .menu a { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--serif); font-size: 1.125rem; text-decoration: none; letter-spacing: .06em; text-transform: uppercase; border-bottom: 1px solid transparent; transition: border-color .2s; }
     .menu a:hover, .menu a[aria-current="true"] { border-color: var(--tinta); }
     .boton { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 48px; padding: .75rem 1.5rem; border-radius: var(--radio); background: var(--grafito); color: #fff; font-family: var(--sans); font-weight: 500; font-size: .875rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--grafito); cursor: pointer; transition: background .2s, color .2s, transform .2s; }
