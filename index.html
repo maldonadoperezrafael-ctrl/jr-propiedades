@@ -136,4 +136,238 @@
     .formulario { background: var(--blanco); padding: clamp(1.5rem, 4vw, 2.5rem); box-shadow: 0 20px 50px rgba(0,0,0,.25); display: grid; gap: 1rem; }
     .formulario h3 { font-size: 2rem; }
     .dos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    label { display: block; font-size: .875rem
+    label { display: block; font-size: .875rem; font-weight: 500; margin-bottom: .35rem; }
+    input, select, textarea { width: 100%; min-height: 48px; padding: .7rem .9rem; font: 400 1rem var(--sans); color: var(--tinta); background: #fff; border: 1px solid #8C8580; border-radius: var(--radio); }
+    textarea { min-height: 110px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--grafito); outline-offset: 1px; border-color: var(--grafito); }
+    input[aria-invalid="true"], select[aria-invalid="true"] { border-color: #B42318; }
+    .error { color: #B42318; font-size: .8125rem; margin-top: .25rem; min-height: 1em; }
+    .consentimiento { display: flex; gap: .6rem; align-items: flex-start; font-size: .875rem; color: var(--texto-suave); }
+    .consentimiento input { width: 20px; min-height: 20px; height: 20px; margin-top: .15rem; accent-color: var(--grafito); }
+    .estado { font-size: .9375rem; padding: .75rem 1rem; border-left: 4px solid var(--grafito); background: var(--greige-2); display: none; }
+    .estado.visible { display: block; }
+
+    /* Pie */
+    .pie { padding-block: 3.5rem 2rem; }
+    .pie .marco { border: 1px solid var(--tinta); padding: clamp(2rem, 5vw, 3rem); display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 2rem; }
+    .pie .marca svg { height: 96px; }
+    .pie h2 { font-family: var(--sans); font-size: .8125rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; margin-bottom: .9rem; }
+    .pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; font-size: .9375rem; }
+    .pie a { text-decoration: none; }
+    .pie a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .redes { display: flex; gap: .75rem; margin-top: 1rem; }
+    .redes { display: flex; gap: 0.85rem; margin-top: 1.15rem; align-items: center; }
+    .redes a { position: relative; width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: none; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+    .redes a:hover { transform: translateY(-3px); }
+    .redes a.red-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); box-shadow: 0 4px 10px rgba(214, 36, 159, 0.28); }
+    .redes a.red-facebook { background: #1877F2; box-shadow: 0 4px 10px rgba(24, 119, 242, 0.28); }
+    .redes a.red-whatsapp { background: #25D366; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.28); }
+    .redes a svg.icono-red { width: 22px; height: 22px; }
+    .redes a .simbolo-redireccion { position: absolute; top: 2px; right: 2px; width: 8px; height: 8px; color: #FFFFFF; opacity: 0.9; }
+    .legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: .8125rem; color: var(--texto-suave); margin-top: 1.5rem; }
+    .whatsapp { position: fixed; right: 1.25rem; bottom: 1.25rem; width: 58px; height: 58px; border-radius: 50%; background: #1F8A4C; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(0,0,0,.25); z-index: 40; transition: transform .2s; }
+    .whatsapp:hover { transform: scale(1.06); }
+
+    /* Adaptación a tablet y móvil */
+    @media (max-width: 1024px) {
+      .servicios { grid-template-columns: repeat(2, 1fr); }
+      .pie .marco { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 860px) {
+      .abrir-menu { display: block; }
+      .navegacion { position: fixed; inset: 84px 0 auto 0; background: var(--blanco); border-bottom: 1px solid var(--linea); padding: 1.5rem 1.25rem 2rem; transform: translateY(-120%); visibility: hidden; transition: transform .3s, visibility .3s; }
+      .navegacion.abierta { transform: none; visibility: visible; }
+      .menu { flex-direction: column; gap: 1rem; }
+      .menu a { font-size: 1.5rem; }
+      .encabezado .contacto-rapido { display: none; }
+      .portada, .alerta, .proceso, .contacto .contenedor { grid-template-columns: 1fr; }
+      .portada figure { min-height: 260px; aspect-ratio: 4 / 3; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 1rem; }
+      .marca svg { height: 44px; }
+      .servicios, .dos, .pie .marco { grid-template-columns: 1fr; }
+      .cifras { grid-template-columns: repeat(3, 1fr); }
+      .cifras strong { font-size: 1.6rem; }
+      .servicio { min-height: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
+  
+    @media (max-width: 600px) {
+      .whatsapp { bottom: 1.25rem; right: 1.25rem; width: 50px; height: 50px; }
+      .formulario .boton { margin-bottom: 2rem; }
+    }
+
+    /* =========================================================
+       ESTILOS LÁMINAS 2, 4 Y 6 + REGLAS RESPONSIVAS AUDITADAS
+       ========================================================= */
+    /* Lámina 2: 4 botones en #servicios */
+    .servicios-pildoras {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      padding: 0;
+      background: transparent;
+      border: none;
+    }
+    .servicios-pildoras .pildora-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 1rem 1.25rem;
+      background: #6F6554;
+      color: #FFFFFF !important;
+      border-radius: 14px;
+      font-family: var(--sans) !important;
+      font-size: 0.92rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.16em !important;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .servicios-pildoras .pildora-link:hover {
+      background: #5D5446;
+      transform: translateY(-2px);
+    }
+
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+
+    /* Lámina 4: 4 bloques redondeados en #nosotros */
+    .disciplinas-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 4.5rem;
+      padding-top: 0;
+      text-align: center;
+      align-items: stretch;
+    }
+    .disciplinas-grid > div {
+      background: #CBC0AD;
+      border-radius: 16px;
+      padding: 1.25rem 1rem;
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .disciplinas-grid p {
+      font-family: var(--sans) !important;
+      font-size: 0.88rem !important;
+      font-weight: 600 !important;
+      color: #463C33 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase;
+      line-height: 1.45 !important;
+      margin: 0 !important;
+      text-align: center;
+    }
+
+    /* Lámina 6: Grilla 2x2 numerada en #como-lo-hacemos */
+    .pasos-marco {
+      background: #6F6554;
+      border-radius: 22px;
+      padding: clamp(1rem, 2.2vw, 1.5rem);
+    }
+    .pasos-cuadricula {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1rem, 2vw, 1.4rem);
+    }
+    .paso-tarjeta {
+      background: #DBD8D0;
+      border-radius: 16px;
+      padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: clamp(1rem, 2vw, 1.75rem);
+      align-items: center;
+    }
+    .paso-numero {
+      font-family: var(--serif);
+      font-size: clamp(3.2rem, 5vw, 4.4rem);
+      font-weight: 600;
+      color: var(--grafito);
+      line-height: 1;
+    }
+    .paso-contenido {
+      text-align: center;
+    }
+    .paso-contenido h3 {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.2vw, 2.05rem);
+      font-weight: 600;
+      color: var(--tinta);
+      margin: 0 0 0.65rem;
+      letter-spacing: -0.01em;
+    }
+    .paso-contenido p {
+      font-family: var(--sans);
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: var(--tinta);
+      margin: 0;
+    }
+
+    @media (max-width: 860px) {
+      .nosotros-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .nosotros-grid > div:last-child {
+        margin: 0 auto;
+        max-width: 360px;
+        width: 100%;
+      }
+      .disciplinas-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+        margin-top: 3rem;
+      }
+      .servicios-pildoras {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      .pasos-cuadricula {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .disciplinas-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .servicios-pildoras {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
+      .paso-tarjeta {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 0.75rem;
+      }
+      .portada .tarjeta {
+        padding: 1.75rem 1.25rem;
+      }
+      .cifras {
+        gap: 0.5rem;
+      }
+      .cifras span {
+        font-size: 0.75rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
