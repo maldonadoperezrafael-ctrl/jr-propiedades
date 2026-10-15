@@ -674,7 +674,7 @@
         var msjWa = encodeURIComponent('Hola, me interesa información sobre: ' + p.titulo);
         var enlaceWa = 'https://wa.me/56990704040?text=' + msjWa;
         return '<article class="propiedad">' +
-          '<figure><img src="' + U + p.foto + q + '" width="720" height="540" loading="lazy" decoding="async" alt="' + p.alt + '"><span class="sello">' + etiquetas[p.tipo] + '</span></figure>' +
+         '<figure><img src="' + (p.foto.indexOf('photo-') === 0 ? U + p.foto + q : p.foto) + '" width="720" height="540" loading="lazy" decoding="async" alt="' + p.alt + '"><span class="sello">' + etiquetas[p.tipo] + '</span></figure>' +
           '<div class="cuerpo"><h3>' + p.titulo + '</h3>' +
           '<p class="lugar"><svg class="icono" aria-hidden="true"><use href="#i-lugar"/></svg>' + p.lugar + '</p>' +
           '<ul class="datos" aria-label="Características">' +
